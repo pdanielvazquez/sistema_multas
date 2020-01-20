@@ -1,0 +1,27 @@
+header
+{
+    background: green;
+
+}
+img
+{
+    width: 100px;
+    right: 100px;;
+}
+
+.col-md-2
+{
+    background: green;
+}
+
+.form-control
+{
+    width: 50%;
+    height: 30px;
+}
+
+input#detalle
+{
+    width: 57%;
+    height: 57px;
+}
