@@ -51,6 +51,7 @@
       <!-- Heading -->
       <div class="sidebar-heading">
         Menú
+        
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -144,8 +145,6 @@
                 </a>
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->
