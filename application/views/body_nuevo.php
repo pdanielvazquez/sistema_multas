@@ -6,7 +6,7 @@
 
           <div class="content">
           	<div class="row">
-          		<div class="col-xs-12 col-md-8 col-lg-8">
+          		<div class="col-xs-12 col-md-10 col-lg-8">
           			<div class="card mb-4">
           				<div class="card-header">
        						Datos de la multa
@@ -47,16 +47,37 @@
                     <!-- .row:2 -->
                     <!-- row:3 -->
                     <div class="row">
-                      <div class="col-xs-12 col-md-3">
+                      <div class="col-xs-12 col-md-4">
                         <label>Monto económico</label>
                         <input type="number" name="monto_numero" id="monto_numero" class="form-control" placeholder="00.00">
                       </div>
-                      <div class="col-xs-12 col-md-9">
+                      <div class="col-xs-12 col-md-8">
                         <label>&nbsp;</label>
                         <input type="text" name="monto_texto" id="monto_texto" class="form-control" placeholder="Cantidad en texto">
                       </div>
                     </div>
                     <!-- .row:3 -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                        <label for="tipo_personal">Tipo de personal</label>
+                        <select name="tipo_personal" id="tipo_personal" class="form-control" >
+                          <option value="">Seleccionar</option>
+                          <option value="alumno">Alumno</option>
+                          <option value="profesor">Profesor</option>
+                        </select>
+                      </div>
+
+                      <div class="col-xs-12 col-md-6">
+                        <label for="etiqueta">Material</label>
+                        <select name="etiqueta" id="etiqueta" class="form-control" >
+                          <option value="">Seleccionar</option>
+                          <option value="blanca">Etiqueta Blanca</option>
+                          <option value="verde">Etiqueta Verde</option>
+                        </select>
+                      </div>
+                    </div>
+                    <br/>
 
                     <!-- row4 -->
                     <div class="row">
