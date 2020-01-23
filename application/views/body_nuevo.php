@@ -3,7 +3,7 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800"><?= $titulo_seccion ?></h1>
-
+          
           <div class="content">
           	<div class="row">
           		<div class="col-xs-12 col-md-10 col-lg-8">
@@ -57,26 +57,38 @@
                       </div>
                     </div>
                     <!-- .row:3 -->
-
                     <div class="row">
                       <div class="col-xs-12 col-md-6">
                         <label for="tipo_personal">Tipo de personal</label>
                         <select name="tipo_personal" id="tipo_personal" class="form-control" >
-                          <option value="">Seleccionar</option>
+                          <option disabled selected >Seleccionar</option>
                           <option value="alumno">Alumno</option>
                           <option value="profesor">Profesor</option>
                         </select>
                       </div>
-
+                      
                       <div class="col-xs-12 col-md-6">
                         <label for="etiqueta">Material</label>
                         <select name="etiqueta" id="etiqueta" class="form-control" >
-                          <option value="">Seleccionar</option>
+                          <option disabled selected >Seleccionar</option>
                           <option value="blanca">Etiqueta Blanca</option>
                           <option value="verde">Etiqueta Verde</option>
                         </select>
                       </div>
                     </div>
+                    <br/>
+
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                        <label for="tipo_personal">Matricula</label>
+                        <select name="tipo_personal" id="tipo_personal" class="form-control" >
+                          <option disabled selected >Seleccionar</option>
+                          <?php foreach ($lista as $key => $valor) {                              
+                                  echo "<option value='".$valor->matricula."'>".$valor->matricula."</option>";
+                                } 
+                          ?>                       
+                        </select>
+                      </div>
                     <br/>
 
                     <!-- row4 -->
