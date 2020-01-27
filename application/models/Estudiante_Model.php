@@ -9,11 +9,15 @@ class Estudiante_Model extends CI_Model{
     */
     public function get_select(){
         #prueba del select $sql="SELECT nombre from alumno";
-        
         $sql="SELECT matricula FROM estudiante ";
         $resultados = $this->db->query($sql);
         return $resultados->result();
-        
+    }
+
+    public function get_name($id){
+        $sql="SELECT nombre from  ViewNombre WHERE matricula='$id' ";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
     }
 
 }

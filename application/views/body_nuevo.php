@@ -1,5 +1,5 @@
 		<!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" >
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800"><?= $titulo_seccion ?></h1>
@@ -31,17 +31,17 @@
                     <!-- .row:1 -->
                     <!-- row:2 -->
                     <div class="row">
-                      <div class="col-xs-12 col-md-4">
+                      <div class="col-xs-12 col-md-5">
                         <label>Fecha límite de devolución</label>
-                        <input type="date" name="fecha_lim_dev" id="fecha_lim_dev" class="form-control">
+                        <input type="date" name="fecha_lim_dev" id="fecha_lim_dev" class="form-control" onchange="diff_fechas()">
                       </div>
                       <div class="col-xs-12 col-md-4">
                         <label>Fecha de devolución</label>
-                        <input type="date" name="fecha_dev" id="fecha_dev" class="form-control">
+                        <input type="text" value="<?= $fecha ?>" name="fecha_dev" id="fecha_dev" class="form-control" disabled>
                       </div>
-                      <div class="col-xs-12 col-md-4">
+                      <div class="col-xs-12 col-md-3">
                         <label>Días de atraso</label>
-                        <input type="number" name="dias_retraso" id="dias_retraso" class="form-control">
+                        <input type="text" name="dias_retrso" id="dias_retraso" class="form-control" disabled/>
                       </div>
                     </div>
                     <!-- .row:2 -->
@@ -49,11 +49,11 @@
                     <div class="row">
                       <div class="col-xs-12 col-md-4">
                         <label>Monto económico</label>
-                        <input type="number" name="monto_numero" id="monto_numero" class="form-control" placeholder="00.00">
+                        <input type="text" name="monto_numero" id="monto_numero" class="form-control" placeholder="00.00" disabled/>
                       </div>
                       <div class="col-xs-12 col-md-8">
                         <label>&nbsp;</label>
-                        <input type="text" name="monto_texto" id="monto_texto" class="form-control" placeholder="Cantidad en texto">
+                        <input type="text" name="monto_texto" id="monto_texto" class="form-control" placeholder="Cantidad en texto" disabled/>
                       </div>
                     </div>
                     <!-- .row:3 -->
@@ -77,19 +77,26 @@
                       </div>
                     </div>
                     <br/>
-
+                    
                     <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                        <label for="tipo_personal">Matricula</label>
-                        <select name="tipo_personal" id="tipo_personal" class="form-control" >
+                      <div class="col-xs-12 col-md-4">
+                        <label for="matricula">Matricula</label>
+                        <select name="matricula" id="matricula" class="form-control select2" onchange="get_data()" >
                           <option disabled selected >Seleccionar</option>
                           <?php foreach ($lista as $key => $valor) {                              
                                   echo "<option value='".$valor->matricula."'>".$valor->matricula."</option>";
-                                } 
+                                }
                           ?>                       
                         </select>
                       </div>
-                    <br/>
+                      <div class="col-xs-12 col-md-8">
+                        <div class="form-group">
+                          <label for="name">Nombre</label>
+                          <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" disabled />
+                        </div>
+                      </div>
+                    </div>
+                    <br/><br/>
 
                     <!-- row4 -->
                     <div class="row">
@@ -189,6 +196,5 @@
           		</div>
           	</div>
           </div>
-
         </div>
         <!-- /.container-fluid -->

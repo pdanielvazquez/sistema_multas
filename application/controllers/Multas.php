@@ -26,9 +26,10 @@ class Multas extends CI_Controller {
 		$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => 'Usuario'
 						);						
-		//$this->Estudiante_Model->get_select();
+		$fecha= date("d")."/".date("m")."/".date("Y");
 		$data_body = array('titulo_seccion' => 'Nueva multa',
-						   'lista'=>$this->Estudiante_Model->get_select()
+						   'lista'=>$this->Estudiante_Model->get_select(),
+						   'fecha'=>$fecha
 						);
 		$this->load->view('header_simple', $data_header);
 		$this->load->view('body_nuevo', $data_body);
