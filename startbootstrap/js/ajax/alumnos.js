@@ -12,16 +12,13 @@ function get_data() {
             document.getElementById("name").value = res.nombre;
         },
         error: function (err) {
-
             console.log(err.fail().responseText);
             console.error('error en la petición');
         }
     });
-
 }
 
 function diff_fechas() {
-
     let fecha_lim_dev = document.getElementById("fecha_lim_dev").value;
     let fecha_dev = document.getElementById("fecha_dev").value;
     //tratramiento de la fecha
@@ -33,29 +30,55 @@ function diff_fechas() {
     let dias = fecha1.diff(fecha2, 'days');
     if (dias >= 0) {
         document.getElementById("dias_retraso").value = dias;
-        let multa = dias * 6;
-        //dar formato de moneda a la multa
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 2
-        })
-        let montoFormato=formatter.format(multa);
-        document.getElementById("monto_numero").value = montoFormato;
-
-
-        //cantidad de la multa en precios
-        let multaLetras=numeroALetras(multa, {
-            plural: 'PESOS MEXICANOS',
-            singular: 'PESOS MEXICANOS',
-            centPlural: 'PESOS',
-            centSingular: 'PESOS'
-        });
-        document.getElementById("monto_texto").value =multaLetras ;
-
+        document.getElementById("monto_numero").value=0;
+        document.getElementById("monto_texto").value="";
     } else {
         document.getElementById("dias_retraso").value = 'Error';
     }
+}
+
+/**
+ * Metodo que calcula el precio dependiendo el tipo de persona
+*/
+
+function calcularPrecio() {
+    let tipoPersona = document.getElementById("tipo_personal").value;
+    let dias = document.getElementById("dias_retraso").value;
+    var multa = 0;
+    if (tipoPersona == 'alumno') {
+        let multa = dias * 6;
+        let precios=formatoPrecio(multa);
+        document.getElementById("monto_numero").value=precios["numero"];
+        document.getElementById("monto_texto").value=precios["numeroLetras"];
+        
+    } else {
+        if (tipoPersona == 'profesor') {
+            let multa = dias * 9;
+            let precios=formatoPrecio(multa);
+            document.getElementById("monto_numero").value=precios["numero"];
+            document.getElementById("monto_texto").value=precios["numeroLetras"];
+        }
+    }
+}
+/**
+ * funcion para dar formato a los precios ejemplo $12.00 Doce pesos mexicanos
+ */
+function formatoPrecio(Cantidad){
+    var precios=[];
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    })
+    precios["numero"] = formatter.format(Cantidad);
+    let multaLetras = numeroALetras(Cantidad, {
+        plural: 'PESOS MEXICANOS',
+        singular: 'PESOS MEXICANOS',
+        centPlural: 'PESOS',
+        centSingular: 'PESOS'
+    });
+    precios["numeroLetras"]=multaLetras;
+    return precios;
 }
 
 /*
