@@ -6,6 +6,7 @@ class Multas extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("Estudiante_Model");
+		$this->load->model("Multa_Model");
 	}
 	public function index(){
 		$this->load->view('welcome_message');
@@ -20,6 +21,20 @@ class Multas extends CI_Controller {
 		$this->load->view('header_simple', $data_header);
 		$this->load->view('body_simple', $data_body);
 		$this->load->view('footer_simple');
+	}
+
+	public function get_precio_multa(){
+		$TipoPersona=$this->input->post('personal');
+		$datos =$this->Multa_Model->get_precio($TipoPersona);
+		$precio=0;
+		foreach ($datos as $key => $value) {
+			$precio=$value->precio;
+		}
+		$res=array(array(
+			"precio"=>$precio
+		));
+		echo json_encode($res);
+
 	}
 
 	public function nueva(){

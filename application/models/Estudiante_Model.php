@@ -14,6 +14,9 @@ class Estudiante_Model extends CI_Model{
         return $resultados->result();
     }
 
+    /**
+     * Regresa el nombre del alumno dependiendo la matricula
+     */
     public function get_name($id){
         $sql="SELECT nombre from  ViewNombre WHERE matricula='$id' ";
         $resultados = $this->db->query($sql);
