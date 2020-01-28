@@ -18,9 +18,9 @@ class Multas extends CI_Controller {
 		$data_body = array('titulo_seccion' => 'El título'
 						);
 		//$this->load->view('blank', $data);
-		$this->load->view('header_simple', $data_header);
+		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body_simple', $data_body);
-		$this->load->view('footer_simple');
+		$this->load->view('default/footer_simple');
 	}
 
 	public function get_precio_multa(){
@@ -46,8 +46,8 @@ class Multas extends CI_Controller {
 						   'lista'=>$this->Estudiante_Model->get_select(),
 						   'fecha'=>$fecha
 						);
-		$this->load->view('header_simple', $data_header);
-		$this->load->view('body_nuevo', $data_body);
-		$this->load->view('footer_simple');
+		$this->load->view('default/header_simple', $data_header);
+		$this->load->view('body/body_nuevo', $data_body);
+		$this->load->view('default/footer_simple');
 	}
 }
