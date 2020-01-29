@@ -23,6 +23,7 @@
   <!-- Custom styles for this template-->
   <link href="<?= base_url('startbootstrap/css/sb-admin-2.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('startbootstrap/css/mis-estilos.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('startbootstrap/css/estilos.css') ?>" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="<?= base_url('startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">

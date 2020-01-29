@@ -23,6 +23,21 @@ class Precios extends CI_Controller {
         
 	}
 
+	function Insertprecio(){
+		$year=$this->input->post('year');
+		$precio=$this->input->post('precio');
+		$persona=$this->input->post('persona');
+
+		$res =$this->Multa_Model->Insert_multa($year,$precio,$persona);
+		if($res){
+			$r=array('status'=>'success');
+			echo json_encode($r);
+		}else{
+			$r=array('status'=>'error');
+			echo json_encode($r);
+		}
+	}
+
 	function update_precio(){
 
 	}
