@@ -8,10 +8,10 @@ class Multas extends CI_Controller {
 		$this->load->model("Estudiante_Model");
 		$this->load->model("Multa_Model");
 	}
-	public function index(){
+	/*public function index(){
 		$this->load->view('welcome_message');
-	}
-	public function blank(){
+	}*/
+	public function index(){
 		$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => 'Usuario'
 						);
@@ -34,7 +34,6 @@ class Multas extends CI_Controller {
 			"precio"=>$precio
 		));
 		echo json_encode($res);
-
 	}
 
 	public function nueva(){
