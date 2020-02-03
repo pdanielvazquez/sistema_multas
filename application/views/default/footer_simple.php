@@ -58,6 +58,22 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url('startbootstrap/js/demo/datatables-demo.js') ?>"></script>
 
+  <!-- select2 -->
+  <script src="<?= base_url('startbootstrap/plugins/select2/js/select2.full.min.js') ?>"></script>
+
+  <!--peticiones ajax-->
+  <script src="<?= base_url('startbootstrap/js/ajax/alumnos.js') ?>"></script>
+  <script src="<?= base_url('startbootstrap/js/ajax/Precios.js') ?>"></script>
+  
+  <!--CDN de moment Manejar fechas -->
+  <script src="http://momentjs.com/downloads/moment.min.js"></script>
+  <!-- iniciamos el select 2 -->
+  <script>
+      $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+      })
+  </script>
 </body>
 
 </html>

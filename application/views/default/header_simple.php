@@ -23,10 +23,12 @@
   <!-- Custom styles for this template-->
   <link href="<?= base_url('startbootstrap/css/sb-admin-2.min.css') ?>" rel="stylesheet">
   <link href="<?= base_url('startbootstrap/css/mis-estilos.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('startbootstrap/css/estilos.css') ?>" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="<?= base_url('startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">
-
+  <!--Select 2 -->
+  <link href="<?= base_url('startbootstrap/plugins/select2/css/select2.min.css') ?>" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -51,6 +53,7 @@
       <!-- Heading -->
       <div class="sidebar-heading">
         Menú
+        
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -61,10 +64,16 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="buttons.html">Registradas</a>
-            <a class="collapse-item" href="cards.html">Nueva</a>
+            <a class="collapse-item" href="#">Registradas</a>
+            <a class="collapse-item" href="/multas/multas/nueva">Nueva</a>
           </div>
         </div>
+
+        <a class="nav-link " href="/multas/Precios">
+          <i class="fas fa-money-check-alt"></i>
+          <span>Precio Multa</span>
+        </a>
+        
       </li>
 
       <!-- Sidebar Toggler (Sidebar) -->
@@ -144,8 +153,6 @@
                 </a>
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->

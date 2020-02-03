@@ -3,55 +3,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Multas extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-
 	public function __construct(){
 		parent::__construct();
-		
-		//$this->load->helper('url'); * lo cargué en autoload.php
+		$this->load->model("Estudiante_Model");
+		$this->load->model("Multa_Model");
 	}
-
-	public function index()
-	{
+	/*public function index(){
 		$this->load->view('welcome_message');
-	}
-
-	public function blank(){
+	}*/
+	public function index(){
 		$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => 'Usuario'
 						);
 		$data_body = array('titulo_seccion' => 'El título'
-
 						);
 		//$this->load->view('blank', $data);
-		$this->load->view('header_simple', $data_header);
+		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body_simple', $data_body);
-		$this->load->view('footer_simple');
+		$this->load->view('default/footer_simple');
+	}
+
+	public function get_precio_multa(){
+		$TipoPersona=$this->input->post('personal');
+		$datos =$this->Multa_Model->get_precio($TipoPersona);
+		$precio=0;
+		foreach ($datos as $key => $value) {
+			$precio=$value->precio;
+		}
+		$res=array(array(
+			"precio"=>$precio
+		));
+		echo json_encode($res);
 	}
 
 	public function nueva(){
 		$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => 'Usuario'
+						);						
+		$fecha= date("d")."/".date("m")."/".date("Y");
+		$data_body = array('titulo_seccion' => 'Nueva multa',
+						   'lista'=>$this->Estudiante_Model->get_select(),
+						   'fecha'=>$fecha
 						);
-		$data_body = array('titulo_seccion' => 'Nueva multa'
-
-						);
-		$this->load->view('header_simple', $data_header);
-		$this->load->view('body_nuevo', $data_body);
-		$this->load->view('footer_simple');
+		$this->load->view('default/header_simple', $data_header);
+		$this->load->view('body/body_nuevo', $data_body);
+		$this->load->view('default/footer_simple');
 	}
 }

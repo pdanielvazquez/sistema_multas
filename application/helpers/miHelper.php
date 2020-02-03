@@ -1,6 +1,6 @@
 <?php
 
-function menu_principal($tipo_usuario, $pagina){
+/*function menu_principal($tipo_usuario, $pagina){
 	?>
 		<!-- Nav Item - Pages Collapse Menu -->
 	      <li class="nav-item">
@@ -16,8 +16,7 @@ function menu_principal($tipo_usuario, $pagina){
 	          </div>
 	        </div>
 	      </li>
-	<?
+	
 }
 
-
-?>
+*/
