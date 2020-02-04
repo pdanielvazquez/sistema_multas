@@ -263,3 +263,22 @@ var numeroALetras = (function () {
     };
 
 })();
+
+
+function multar(){
+   $datos='lorem';
+    $.ajax({
+        url: '../multas/GeneraPDF',
+        data: {$datos },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            alert('succes');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+}
