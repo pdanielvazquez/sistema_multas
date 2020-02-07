@@ -9,6 +9,8 @@ class Multas extends CI_Controller
 		parent::__construct();
 		$this->load->model("Estudiante_Model");
 		$this->load->model("Multa_Model");
+		// Cargamos la librería
+		$this->load->library('pdfgenerator');
 	}
 	/*public function index(){
 		$this->load->view('welcome_message');
@@ -26,6 +28,9 @@ class Multas extends CI_Controller
 		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body_simple', $data_body);
 		$this->load->view('default/footer_simple');
+		
+		// definamos un nombre para el archivo. No es necesario agregar la extension .pdf
+		
 	}
 
 	public function get_precio_multa()
@@ -62,15 +67,8 @@ class Multas extends CI_Controller
 
 	function GeneraPDF()
 	{
-		// Cargamos la librería
-		$this->load->library('pdfgenerator');
-		// definamos un nombre para el archivo. No es necesario agregar la extension .pdf
-		$filename = 'comprobante_pago';
-		$viewdata=array();
-
-		$html = $this->load->view('formato/pdf', $viewdata, TRUE);
-		// generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
-		$this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
-		echo json_encode(array('status'=>'success'));
+		$obj=$this->input->post('obj');	
+		var_dump($obj);
+		echo json_encode(array('status'=>$obj));
 	}
 }

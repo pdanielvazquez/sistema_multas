@@ -266,10 +266,18 @@ var numeroALetras = (function () {
 
 
 function multar(){
-   $datos='lorem';
+
+    obj=({
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+    })
+
+
     $.ajax({
         url: '../multas/GeneraPDF',
-        data: {$datos },
+        data: {obj },
         type: 'POST',
         dataType: 'json',
         success: function (data) {
