@@ -19,9 +19,9 @@ class Multa_Model extends CI_Model{
      * funcion que regresa listado de todos los precio para la multa
      */
     public function get_litas_precios(){
-        $sql="SELECT id,years,activo,precio,nombre 
-        FROM preciosmulta  INNER JOIN personal 
-        on id_presonal= tipo_personal";
+        $sql="SELECT id,years,activo,precio,nombre
+                 FROM preciosmulta INNER JOIN personal 
+                 on tipo_personal= id_personal";
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }

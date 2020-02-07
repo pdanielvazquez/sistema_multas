@@ -42,11 +42,12 @@ class Multas extends CI_Controller
 			$precio = $value->precio;
 		}
 		$res = array(array(
-			"precio" => $precio
+			"precio" => $TipoPersona
 		));
 		echo json_encode($res);
 	}
 
+	
 	public function nueva()
 	{
 		$data_header = array(

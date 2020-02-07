@@ -46,14 +46,24 @@ function diff_fechas() {
  * Metodo que calcula el precio dependiendo el tipo de persona
 */
 function calcularPrecio() {
-    let tipoPersona = document.getElementById("tipo_personal").value;
-    if (tipoPersona ==='alumno') {
+    let personal = document.getElementById("tipo_personal").value;
+    alert(personal);
+    //https://codeseven.github.io/toastr/
+    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
+
+    // Display a success toast, with a title
+    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
+    // Display an error toast, with a title
+    toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
+
+    if (personal ==='alumno') {
         //llamado a la funcion 
-        get_precio(tipoPersona);
+        get_precio(personal);
     } else {
-        if (tipoPersona === 'profesor') {
+        if (personal === 'profesor') {
             //llamado a la funcion
-            get_precio(tipoPersona);
+            get_precio(personal);
         }
     }
 }

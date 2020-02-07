@@ -29,6 +29,9 @@
   <link href="<?= base_url('startbootstrap/vendor/datatables/dataTables.bootstrap4.min.css') ?>" rel="stylesheet">
   <!--Select 2 -->
   <link href="<?= base_url('startbootstrap/plugins/select2/css/select2.min.css') ?>" rel="stylesheet">
+
+  <!--TOAS-->
+  <link href="<?= base_url('startbootstrap/css/toastr.min.css') ?>" rel="stylesheet">
 </head>
 
 <body id="page-top">
