@@ -47,15 +47,11 @@ function diff_fechas() {
 */
 function calcularPrecio() {
     let personal = document.getElementById("tipo_personal").value;
-    alert(personal);
-    //https://codeseven.github.io/toastr/
-    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
-
-    // Display a success toast, with a title
-    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
-
-    // Display an error toast, with a title
-    toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
+    
+    
+    notificacion('lorem','error');
+    notificacion('succes','succes');
+    notificacion('advertencia','advertencia');
 
     if (personal ==='alumno') {
         //llamado a la funcion 
@@ -69,6 +65,8 @@ function calcularPrecio() {
 }
 /**
  * funcion que hace una peticion ajax para saber el precio activo
+ * documentacion de libreria
+ * //https://codeseven.github.io/toastr/
  */
 function get_precio(personal){
     var precio;
@@ -275,6 +273,28 @@ var numeroALetras = (function () {
 })();
 
 
+
+/**
+ * sirve para mandar los TOAS
+ */
+function notificacion(msg,err){
+    /**
+     * configuracion
+     */
+    toastr.options.progressBar = true;
+        toastr.options.timeOut = 3600;
+    if(err=="succes"){
+        
+        toastr.success(msg, 'Correcto')
+    }else if (err=="error") {
+        //toastr.options.progressBar = true;
+        toastr.error(msg, 'Error')
+    }else if(err=="advertencia"){
+        //toastr.options.progressBar = true;
+        toastr.warning(msg,'Advertencia')
+    }    
+}
+
 function multar(){
 
     obj=({
@@ -283,8 +303,6 @@ function multar(){
         'nombre':'nombre 1',
         'nombre':'nombre 1',
     })
-
-
     $.ajax({
         url: '../multas/GeneraPDF',
         data: {obj },
