@@ -12,7 +12,7 @@ class Multas extends CI_Controller {
 		$this->load->view('welcome_message');
 	}*/
 	public function index(){
-		$data_header = array('titulo' => 'Sistema de multas',
+		/*$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => 'Usuario'
 						);
 		$data_body = array('titulo_seccion' => 'El título'
@@ -20,7 +20,10 @@ class Multas extends CI_Controller {
 		//$this->load->view('blank', $data);
 		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body_simple', $data_body);
-		$this->load->view('default/footer_simple');
+		$this->load->view('default/footer_simple');*/
+		echo "hola we";
+
+		
 	}
 
 	public function get_precio_multa(){
