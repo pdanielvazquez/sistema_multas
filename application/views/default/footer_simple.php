@@ -64,6 +64,8 @@
   <!--peticiones ajax-->
   <script src="<?= base_url('startbootstrap/js/ajax/alumnos.js') ?>"></script>
   <script src="<?= base_url('startbootstrap/js/ajax/Precios.js') ?>"></script>
+
+  <script src="<?= base_url('startbootstrap/js/toastr.min.js') ?>"></script>
   
   <!--CDN de moment Manejar fechas -->
   <script src="http://momentjs.com/downloads/moment.min.js"></script>

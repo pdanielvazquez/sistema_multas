@@ -46,19 +46,27 @@ function diff_fechas() {
  * Metodo que calcula el precio dependiendo el tipo de persona
 */
 function calcularPrecio() {
-    let tipoPersona = document.getElementById("tipo_personal").value;
-    if (tipoPersona ==='alumno') {
+    let personal = document.getElementById("tipo_personal").value;
+    
+    
+    notificacion('lorem','error');
+    notificacion('succes','succes');
+    notificacion('advertencia','advertencia');
+
+    if (personal ==='alumno') {
         //llamado a la funcion 
-        get_precio(tipoPersona);
+        get_precio(personal);
     } else {
-        if (tipoPersona === 'profesor') {
+        if (personal === 'profesor') {
             //llamado a la funcion
-            get_precio(tipoPersona);
+            get_precio(personal);
         }
     }
 }
 /**
  * funcion que hace una peticion ajax para saber el precio activo
+ * documentacion de libreria
+ * //https://codeseven.github.io/toastr/
  */
 function get_precio(personal){
     var precio;
@@ -263,3 +271,50 @@ var numeroALetras = (function () {
     };
 
 })();
+
+
+
+/**
+ * sirve para mandar los TOAS
+ */
+function notificacion(msg,err){
+    /**
+     * configuracion
+     */
+    toastr.options.progressBar = true;
+        toastr.options.timeOut = 3600;
+    if(err=="succes"){
+        
+        toastr.success(msg, 'Correcto')
+    }else if (err=="error") {
+        //toastr.options.progressBar = true;
+        toastr.error(msg, 'Error')
+    }else if(err=="advertencia"){
+        //toastr.options.progressBar = true;
+        toastr.warning(msg,'Advertencia')
+    }    
+}
+
+function multar(){
+
+    obj=({
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+        'nombre':'nombre 1',
+    })
+    $.ajax({
+        url: '../multas/GeneraPDF',
+        data: {obj },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            alert('succes');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+}

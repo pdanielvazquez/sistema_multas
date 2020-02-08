@@ -188,10 +188,9 @@
                       </div>
                     </div>
                     <!-- .row4 -->
-
           				</div>
           				<div class="card-footer">
-          					<button class="btn btn-success">Aceptar</button>
+          					<button class="btn btn-success" onclick="multar();">Aceptar</button>
                     <button class="btn btn-warning">Cancelar</button>
           				</div>
           			</div>
