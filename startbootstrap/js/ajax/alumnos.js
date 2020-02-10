@@ -47,13 +47,13 @@ function diff_fechas() {
 */
 function calcularPrecio() {
     let personal = document.getElementById("tipo_personal").value;
-    
-    
-    notificacion('lorem','error');
-    notificacion('succes','succes');
-    notificacion('advertencia','advertencia');
 
-    if (personal ==='alumno') {
+
+    notificacion('lorem', 'error');
+    notificacion('succes', 'succes');
+    notificacion('advertencia', 'advertencia');
+
+    if (personal === 'alumno') {
         //llamado a la funcion 
         get_precio(personal);
     } else {
@@ -68,7 +68,7 @@ function calcularPrecio() {
  * documentacion de libreria
  * //https://codeseven.github.io/toastr/
  */
-function get_precio(personal){
+function get_precio(personal) {
     var precio;
     $.ajax({
         url: '../multas/get_precio_multa',
@@ -76,13 +76,13 @@ function get_precio(personal){
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-            precio= data[0].precio;  
+            precio = data[0].precio;
             let dias = document.getElementById("dias_retraso").value;
-            precio=dias*precio;
+            precio = dias * precio;
             //llamado a la funcion de formato de los precios
             let precios = formatoPrecio(precio);
             document.getElementById("monto_numero").value = precios["numero"];
-            document.getElementById("monto_texto").value = precios["numeroLetras"];            
+            document.getElementById("monto_texto").value = precios["numeroLetras"];
         },
         error: function (err) {
             return err;
@@ -277,35 +277,34 @@ var numeroALetras = (function () {
 /**
  * sirve para mandar los TOAS
  */
-function notificacion(msg,err){
+function notificacion(msg, err) {
     /**
      * configuracion
      */
     toastr.options.progressBar = true;
-        toastr.options.timeOut = 3600;
-    if(err=="succes"){
-        
+    toastr.options.closeMethod = 'slideUp';
+    toastr.options.closeDuration = 300;
+    toastr.options.closeEasing = 'swing';
+    if (err == "succes") {
         toastr.success(msg, 'Correcto')
-    }else if (err=="error") {
-        //toastr.options.progressBar = true;
+    } else if (err == "error") {
         toastr.error(msg, 'Error')
-    }else if(err=="advertencia"){
-        //toastr.options.progressBar = true;
-        toastr.warning(msg,'Advertencia')
-    }    
+    } else if (err == "advertencia") {
+        toastr.warning(msg, 'Advertencia')
+    }
 }
 
-function multar(){
+function multar() {
 
-    obj=({
-        'nombre':'nombre 1',
-        'nombre':'nombre 1',
-        'nombre':'nombre 1',
-        'nombre':'nombre 1',
+    obj = ({
+        'nombre': 'nombre 1',
+        'nombre': 'nombre 1',
+        'nombre': 'nombre 1',
+        'nombre': 'nombre 1',
     })
     $.ajax({
         url: '../multas/GeneraPDF',
-        data: {obj },
+        data: { obj },
         type: 'POST',
         dataType: 'json',
         success: function (data) {
