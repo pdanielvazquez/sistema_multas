@@ -1,6 +1,6 @@
 
 //peticion para saber el nombre del alumno
-function get_nombre_alumno(){
+function get_nombre_alumno() {
     var matricula = document.getElementById("matricula").value;
     $.ajax({
         url: '../Alumno/get_name',
@@ -8,7 +8,7 @@ function get_nombre_alumno(){
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             //let res = data[0];
             document.getElementById("name_alumno").value = data.nombre;
         },
@@ -20,7 +20,7 @@ function get_nombre_alumno(){
 }
 
 //peticion para saber el nombre del maestro
-function get_nombre_maestro(){
+function get_nombre_maestro() {
     var id = document.getElementById("id_maestro").value;
     $.ajax({
         url: '../Maestro/get_name',
@@ -58,23 +58,29 @@ function diff_fechas() {
         document.getElementById("monto_texto").value = "";
     } else {
         document.getElementById("dias_retraso").value = 'Error';
-        notificacion('Numero de retraso debe de ser mayor o igual 1','error');
+        notificacion('Días de retraso debe de ser mayor o igual 1', 'error');
     }
 }
 
 function calcularPrecio() {
     let personal = document.getElementById("tipo_personal").value;
-    if(personal=='alumno'){
-        document.getElementById('alumno').className="row animated bounceInRight ";
-        document.getElementById('maestro').className="d-none";
-        get_precio(personal);
-    }else{
-        if(personal=='profesor'){
-            document.getElementById('maestro').className="row animated bounceInRight ";
-            document.getElementById('alumno').className="d-none";
+    let dias = document.getElementById("dias_retraso").value;
+    if (dias != 'Error') {
+        if (personal == 'alumno') {
+            document.getElementById('alumno').className = "row animated bounceInRight ";
+            document.getElementById('maestro').className = "d-none";
             get_precio(personal);
+        } else {
+            if (personal == 'profesor') {
+                document.getElementById('maestro').className = "row animated bounceInRight ";
+                document.getElementById('alumno').className = "d-none";
+                get_precio(personal);
+            }
         }
+    } else {
+        notificacion('Días de retraso debe de ser mayor o igual 1', 'error');
     }
+
 }
 
 /**
@@ -82,7 +88,7 @@ function calcularPrecio() {
  * documentacion de libreria
  * //https://codeseven.github.io/toastr/
  */
-function get_precio(personal) {    
+function get_precio(personal) {
     $.ajax({
         url: '../multas/get_precio_multa',
         data: { personal },
@@ -296,7 +302,7 @@ function notificacion(msg, err) {
     toastr.options.closeMethod = 'slideUp';
     toastr.options.closeDuration = 300;
     toastr.options.closeEasing = 'swing';
-    if (err == "succes") {
+    if (err == "success") {
         toastr.success(msg, 'Correcto')
     } else if (err == "error") {
         toastr.error(msg, 'Error')
@@ -312,24 +318,54 @@ function notificacion(msg, err) {
  * manda los datos al controlador de multas para generar la multa 
  */
 function multar() {
-    obj = ({
-        'nombre': 'nombre 1',
-        'nombre': 'nombre 1',
-        'nombre': 'nombre 1',
-        'nombre': 'nombre 1',
-    })
-    $.ajax({
-        url: '../multas/GeneraPDF',
-        data: { obj },
-        type: 'POST',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            alert('succes');
-        },
-        error: function (err) {
-            console.log(err);
+    alert('verifica');
+    let dias = document.getElementById("dias_retraso").value;
+
+    //validacion de dias de retraso que sea 1 o mayor
+    if (dias != 'Error') {
+        //banderas
+        let Bpersonal = Bmaterial = Bmonto = Bno_inventario = Btipo_material = 0;
+
+        let personal = document.getElementById("tipo_personal").value;
+        (personal == 'Seleccionar') ? notificacion('Debes seleccionar tipo de personal', 'error') : Bpersonal = 1;
+
+        let material = document.getElementById("etiqueta").value;
+        (material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Bmaterial = 1;
+
+        let monto = document.getElementById("monto_numero").value;
+        (monto == '') ? notificacion('Asigna fecha valida', 'error') : Bmonto = 1;
+
+        let no_inventario = document.getElementById("no_inventario").value;
+        (no_inventario == '') ? notificacion('Agrega No. Inventario', 'error') : Bno_inventario = 1;
+
+        let tipo_material = document.getElementById("tipo_material").value;
+        (tipo_material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Btipo_material = 1;
+
+        if (Bpersonal && Bmaterial && Bmonto && Bno_inventario && Btipo_material) {
+            notificacion('validacion completa', 'success');
+
+            //peticion ajax para guardar los datos y generar pdf
+
+            /*$.ajax({
+                url: '../multas/GeneraPDF',
+                data: { obj },
+                type: 'POST',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    alert('succes');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });*/
+
+            
+
         }
-    });
+    } else {
+        notificacion('Días de retraso debe de ser mayor o igual 1', 'error');
+    }
+
 
 }

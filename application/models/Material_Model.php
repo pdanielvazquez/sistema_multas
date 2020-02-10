@@ -12,5 +12,7 @@ class Material_Model extends CI_Model{
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }
+
+    
 }
 ?>

@@ -35,7 +35,7 @@
 
   <!--Animacion animate.css-->
   
-  <link href="<?= base_url('startbootstrap/css/link-animate.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('startbootstrap/css/animate.css') ?>" rel="stylesheet">
 </head>
 
 <body id="page-top">

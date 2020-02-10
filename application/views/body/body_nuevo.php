@@ -130,7 +130,7 @@
                     <div class="row">
                       <div class="col-xs-12 col-md-12">
                         <!-- DataTale -->
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-12">
                           <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Materiales entregados de manera extemporanea</h6>
                           </div>
@@ -143,13 +143,16 @@
                                   <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                       <div class="form-group">
-                                        <label>No. de inventario del material</label>
+                                        <label>No. de inventario del material</label>              
                                         <input type="text" name="no_inventario" id="no_inventario" class="form-control" placeholder="Por ejemplo: 12345">
+                                        </select>
+                                        
                                       </div>
                                       <div class="form-group">
                                         <label>Tipo de material</label>
                                         <select name="tipo_material" id="tipo_material" class="form-control">
-                                          <?php
+                                         <option disabled selected >Seleccionar</option>
+                                         <?php
                                             foreach ($materiales as $key => $value) {
                                               echo "<option value='".$value->id."'>".$value->nombre."</option>";
                                             }  
@@ -166,12 +169,13 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div>
+                                
+                                <!--<div>
                                   <button class="btn btn-primary">Agregar</button>
-                                </div>
+                                </div>-->
                               </fieldset>
                             </div>
-
+                            <!--
                             <div class="table-responsive">
                               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
@@ -207,6 +211,7 @@
                                 </tbody>
                               </table>
                             </div>
+                                          -->
                             <!-- .tabla responsiva -->
                           </div>
                           <!-- .card-body -->
