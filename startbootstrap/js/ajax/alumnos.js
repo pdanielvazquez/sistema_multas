@@ -42,6 +42,7 @@ function diff_fechas() {
     }
 }
 
+
 /**
  * Metodo que calcula el precio dependiendo el tipo de persona
 */
