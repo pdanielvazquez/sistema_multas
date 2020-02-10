@@ -149,10 +149,11 @@
                                       <div class="form-group">
                                         <label>Tipo de material</label>
                                         <select name="tipo_material" id="tipo_material" class="form-control">
-                                          <option>Libro</option>
-                                          <option>Revista</option>
-                                          <option>CD</option>
-                                          <option>Otro</option>
+                                          <?php
+                                            foreach ($materiales as $key => $value) {
+                                              echo "<option value='".$value->id."'>".$value->nombre."</option>";
+                                            }  
+                                          ?>                
                                         </select>
                                       </div>
                                       <label>Otro tipo de material</label>
