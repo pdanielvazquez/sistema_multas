@@ -1,15 +1,16 @@
-//peticiones para saber el nombre 
-function get_data() {
+
+//peticion para saber el nombre del alumno
+function get_nombre_alumno(){
     var matricula = document.getElementById("matricula").value;
-    document.getElementById("name").value = '';
     $.ajax({
         url: '../Alumno/get_name',
         data: { matricula },
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-            let res = data[0];
-            document.getElementById("name").value = res.nombre;
+            console.log(data);
+            //let res = data[0];
+            document.getElementById("name_alumno").value = data.nombre;
         },
         error: function (err) {
             console.log(err.fail().responseText);
@@ -18,6 +19,24 @@ function get_data() {
     });
 }
 
+//peticion para saber el nombre del maestro
+function get_nombre_maestro(){
+    var id = document.getElementById("id_maestro").value;
+    $.ajax({
+        url: '../Maestro/get_name',
+        data: { id },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            // console.log(data);
+            document.getElementById("name_maestro").value = data.nombre;
+        },
+        error: function (err) {
+            //console.log(err.fail().responseText);
+            console.error('error en la petición');
+        }
+    });
+}
 
 /**
  * funcion para saber la diferiencia de dias
@@ -39,44 +58,38 @@ function diff_fechas() {
         document.getElementById("monto_texto").value = "";
     } else {
         document.getElementById("dias_retraso").value = 'Error';
+        notificacion('Numero de retraso debe de ser mayor o igual 1','error');
     }
 }
 
-
-/**
- * Metodo que calcula el precio dependiendo el tipo de persona
-*/
 function calcularPrecio() {
     let personal = document.getElementById("tipo_personal").value;
-
-
-    notificacion('lorem', 'error');
-    notificacion('succes', 'succes');
-    notificacion('advertencia', 'advertencia');
-
-    if (personal === 'alumno') {
-        //llamado a la funcion 
+    if(personal=='alumno'){
+        document.getElementById('alumno').className="row animated bounceInRight ";
+        document.getElementById('maestro').className="d-none";
         get_precio(personal);
-    } else {
-        if (personal === 'profesor') {
-            //llamado a la funcion
+    }else{
+        if(personal=='profesor'){
+            document.getElementById('maestro').className="row animated bounceInRight ";
+            document.getElementById('alumno').className="d-none";
             get_precio(personal);
         }
     }
 }
+
 /**
  * funcion que hace una peticion ajax para saber el precio activo
  * documentacion de libreria
  * //https://codeseven.github.io/toastr/
  */
-function get_precio(personal) {
-    var precio;
+function get_precio(personal) {    
     $.ajax({
         url: '../multas/get_precio_multa',
         data: { personal },
         type: 'POST',
         dataType: 'json',
         success: function (data) {
+            //console.log(data);
             precio = data[0].precio;
             let dias = document.getElementById("dias_retraso").value;
             precio = dias * precio;
@@ -89,7 +102,6 @@ function get_precio(personal) {
             return err;
         }
     });
-    return precio;
 }
 
 /**
@@ -273,8 +285,6 @@ var numeroALetras = (function () {
 
 })();
 
-
-
 /**
  * sirve para mandar los TOAS
  */
@@ -295,8 +305,13 @@ function notificacion(msg, err) {
     }
 }
 
-function multar() {
 
+
+
+/**
+ * manda los datos al controlador de multas para generar la multa 
+ */
+function multar() {
     obj = ({
         'nombre': 'nombre 1',
         'nombre': 'nombre 1',

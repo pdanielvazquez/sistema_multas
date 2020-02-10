@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://localhost/multas/';
-$config['base_url'] = "http://localhost:81/multas/";
+$config['base_url'] = "http://localhost/multas/";
 //http://localhost:81/multas/
 /*
 |--------------------------------------------------------------------------

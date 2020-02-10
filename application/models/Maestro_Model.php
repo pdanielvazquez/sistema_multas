@@ -8,7 +8,6 @@ class Maestro_Model extends CI_Model{
     * se utiliza para el select con los id de los alumnos
     */
     public function get_id(){
-        #prueba del select $sql="SELECT nombre from alumno";
         $sql="SELECT id FROM docente";
         $resultados = $this->db->query($sql);
         return $resultados->result();
@@ -18,7 +17,7 @@ class Maestro_Model extends CI_Model{
      * Regresa el nombre del alumno dependiendo la matricula
      */
     public function get_name($id){
-        $sql="SELECT nombre from  ViewNombre WHERE matricula='$id' ";
+        $sql="SELECT nombre FROM viewnombremaestro  WHERE id='$id' ";
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }

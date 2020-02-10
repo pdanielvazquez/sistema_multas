@@ -1,18 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Alumno extends CI_Controller {
+class Maestro extends CI_Controller {
 
     public function __construct(){
 		parent::__construct();
-		$this->load->model("Estudiante_Model");
+		$this->load->model("Maestro_Model");
     }
     
 	public function get_name(){
-        //recogemos la matricula
-        $matricula=$this->input->post('matricula');
+        //recogemos el id del maestro
+        $id=$this->input->post('id');
         //consulta 
-        $datos= $this->Estudiante_Model->get_name($matricula);
+        $datos= $this->Maestro_Model->get_name($id);
         $name='';
         foreach ($datos as $key => $item) {
             $name=$item->nombre;

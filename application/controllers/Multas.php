@@ -40,14 +40,11 @@ class Multas extends CI_Controller
 		foreach ($datos as $key => $value) {
 			$precio = $value->precio;
 		}
+
 		$res = array(array(
-			"precio" => $TipoPersona
+			"precio" => $precio
 		));
 		echo json_encode($res);
-	}
-	public function hola()
-	{
-	 echo "<h1>Hola</h1>";
 	}
 	
 	public function nueva()
@@ -67,7 +64,6 @@ class Multas extends CI_Controller
 		$this->load->view('body/body_nuevo', $data_body);
 		$this->load->view('default/footer_simple');
 	}
-
 
 	function GeneraPDF()
 	{

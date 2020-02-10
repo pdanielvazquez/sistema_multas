@@ -86,7 +86,7 @@
                     <div class="row d-none" id="alumno">
                       <div class="col-xs-12 col-md-4 form-group">
                         <label for="matricula">Matricula</label>
-                        <select class="select2 form-control " name="matricula" id="matricula"  style="width:100%;height:30px;" onchange="get_data()" >
+                        <select class="select2 form-control"  name="matricula" id="matricula" onchange="get_nombre_alumno();" style="width:100%;height:30px;"  >
                           <option disabled selected >Seleccionar</option>
                           <?php foreach ($lista as $key => $valor) {                              
                                   echo "<option value='".$valor->matricula."'>".$valor->matricula."</option>";
@@ -106,7 +106,7 @@
                     <div class="row d-none" id="maestro">
                       <div class="col-xs-12 col-md-4 form-group">
                         <label for="id_maestro">ID maestro</label>
-                        <select class=" form-control select2 " name="id_maestro" id="id_maestro"  style="width:100%;height:30px;" onchange="get_data()" >
+                        <select class=" form-control select2 " name="id_maestro" id="id_maestro" onchange="get_nombre_maestro()" style="width:100%;height:30px;"  >
                           <option disabled selected >Seleccionar</option>
                           <?php foreach ($lista_id as $key => $valor) {                              
                                   echo "<option value='".$valor->id."'>".$valor->id."</option>";

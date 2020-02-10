@@ -32,6 +32,10 @@
 
   <!--TOAS-->
   <link href="<?= base_url('startbootstrap/css/toastr.min.css') ?>" rel="stylesheet">
+
+  <!--Animacion animate.css-->
+  
+  <link href="<?= base_url('startbootstrap/css/link-animate.css') ?>" rel="stylesheet">
 </head>
 
 <body id="page-top">
