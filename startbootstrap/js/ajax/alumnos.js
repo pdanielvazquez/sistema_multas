@@ -42,13 +42,26 @@ function diff_fechas() {
     }
 }
 
+
 /**
  * Metodo que calcula el precio dependiendo el tipo de persona
 */
 function calcularPrecio() {
     let personal = document.getElementById("tipo_personal").value;
-    
-    
+
+    alert(personal);
+    if(personal=='alumno'){
+        document.getElementById('alumno').className="row";
+        document.getElementById('maestro').className="d-none";
+    }else{
+        if(personal=='profesor'){
+            document.getElementById('maestro').className="row";
+            document.getElementById('alumno').className="d-none";
+        }
+    }
+
+  
+    /*
     notificacion('lorem','error');
     notificacion('succes','succes');
     notificacion('advertencia','advertencia');
@@ -61,7 +74,7 @@ function calcularPrecio() {
             //llamado a la funcion
             get_precio(personal);
         }
-    }
+    }*/
 }
 /**
  * funcion que hace una peticion ajax para saber el precio activo

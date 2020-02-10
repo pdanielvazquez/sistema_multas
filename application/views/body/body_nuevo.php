@@ -68,6 +68,8 @@
                     </div>
                     <br/>
 
+                    
+
                     <!-- row:3 -->
                     <div class="row">
                       <div class="col-xs-12 col-md-4 form-group">
@@ -78,12 +80,13 @@
                         <label>&nbsp;</label>
                         <input type="text" name="monto_texto" id="monto_texto" class="form-control" placeholder="Cantidad en texto" disabled/>
                       </div>
-                    </div>                                      
-                    <div class="row">
+                    </div>
+
+                    <!--contenedor con matricula y nombre de alumnos-->
+                    <div class="row d-none" id="alumno">
                       <div class="col-xs-12 col-md-4 form-group">
                         <label for="matricula">Matricula</label>
-                        
-                        <select class=" form-control select2 " name="matricula" id="matricula"  style="width:100%;height:30px;" onchange="get_data()" >
+                        <select class="select2 form-control " name="matricula" id="matricula"  style="width:100%;height:30px;" onchange="get_data()" >
                           <option disabled selected >Seleccionar</option>
                           <?php foreach ($lista as $key => $valor) {                              
                                   echo "<option value='".$valor->matricula."'>".$valor->matricula."</option>";
@@ -93,11 +96,34 @@
                       </div>
                       <div class="col-xs-12 col-md-8 form-group">
                         <div class="form-group">
-                          <label for="name">Nombre</label>
-                          <input type="text" name="name" id="name" class="form-control" placeholder="Nombre" disabled />
+                          <label for="name_alumno">Nombre</label>
+                          <input type="text" name="name_alumno" id="name_alumno" class="form-control" placeholder="Nombre" disabled />
                         </div>
                       </div>
                     </div>
+
+                    <!--Contenedor con id y nombres del maestro --->
+                    <div class="row d-none" id="maestro">
+                      <div class="col-xs-12 col-md-4 form-group">
+                        <label for="id_maestro">ID maestro</label>
+                        <select class=" form-control select2 " name="id_maestro" id="id_maestro"  style="width:100%;height:30px;" onchange="get_data()" >
+                          <option disabled selected >Seleccionar</option>
+                          <?php foreach ($lista_id as $key => $valor) {                              
+                                  echo "<option value='".$valor->id."'>".$valor->id."</option>";
+                                }
+                          ?>
+                        </select>
+                      </div>
+                      <div class="col-xs-12 col-md-8 form-group">
+                        <div class="form-group">
+                          <label for="name_maestro">Nombre</label>
+                          <input type="text" name="name_maestro" id="name_maestro" class="form-control" placeholder="Nombre" disabled />
+                        </div>
+                      </div>
+                    </div>
+                    
+
+
                     <br/><br/>
 
                     <!-- row4 -->
