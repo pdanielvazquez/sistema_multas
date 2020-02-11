@@ -53,5 +53,25 @@ class Multa_Model extends CI_Model{
         $this->db->insert('preciosmulta',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }
+
+    //folio 	fecha_creada 	fecha_limite 	etiqueta 	tipo_personal 	multado 	total 	no_inventario 	tipo_material 	otro_material 	descripcion 
+    public function multar($folio,$fecha_creada,$fecha_limite,$etiqueta,$tipo_personal,$multado,$total,$no_inventario,$tipo_material,$otro_material,$descripcion ){        
+        $data = array(
+            'folio'=>$folio,
+            'fecha_creada'=>$fecha_creada,
+            'fecha_limite'=>$fecha_limite,
+            'etiqueta'=>$etiqueta,
+            'tipo_personal'=>$tipo_personal,
+            'multado'=>$multado,
+            'total'=>$total,
+            'no_inventario'=>$no_inventario,
+            'tipo_material'=>$tipo_material,
+            'otro_material'=>$otro_material,
+            'descripcion'=>$descripcion
+        );
+
+        $this->db->insert('multas',$data);
+        return ($this->db->affected_rows() != 1) ? false : true;   
+    }
 }
 ?>

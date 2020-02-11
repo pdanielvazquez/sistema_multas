@@ -343,29 +343,76 @@ function multar() {
 
         if (Bpersonal && Bmaterial && Bmonto && Bno_inventario && Btipo_material) {
             notificacion('validacion completa', 'success');
-
-            //peticion ajax para guardar los datos y generar pdf
-
-            /*$.ajax({
-                url: '../multas/GeneraPDF',
-                data: { obj },
+            var variable='luis';
+            
+            let fecha_limite=get_Valor('fecha_lim_dev');//get_Valor('fecha_lim_dev');
+            let fecha_devolucion=get_Valor('fecha_dev');        //get_Valor('fecha_dev');
+            let diasrestraso=get_Valor('dias_retraso');        //get_Valor('dias_retrso');
+            let tipo_persona=get_Valor('tipo_personal');       //get_Valor('tipo_personal');
+            let monto=get_Valor('monto_numero');        //get_Valor('monto_numero');
+            let etiqueta=get_Valor('etiqueta');      //get_Valor('etiqueta');
+            
+            let no_inventario=get_Valor('no_inventario');    //get_Valor('no_inventario');
+            let tipo_Material=get_Valor('tipo_material');     //get_Valor('tipo_material');
+            let otro_tipo_Material=get_Valor('otro_material');     //get_Valor('otro_material');
+            let descripcion=get_Valor('descripcion_material');      //get_Valor('descripcion_material');
+            let identidicador;
+            let nombre; 
+            
+            if(tipo_persona=='alumno'){
+                identidicador=get_Valor('matricula');
+                nombre=get_Valor('name_alumno'); 
+            }else if(tipo_persona=='profesor'){
+                identidicador=get_Valor('id_maestro');
+                nombre=get_Valor('name_maestro'); 
+            }
+            
+            const formulario=({
+                nombre,
+                identidicador,
+                fecha_limite,
+                fecha_devolucion,
+                diasrestraso,
+                tipo_persona,
+                monto,
+                etiqueta,
+                no_inventario,
+                tipo_Material,
+                otro_tipo_Material,
+                descripcion
+            });
+            console.log(formulario);
+            if(monto!="$0.00"){
+                $.ajax({
+                url: '../multas/multar',                
+                data: { nombre,
+                    identidicador,
+                    fecha_limite,
+                    fecha_devolucion,
+                    diasrestraso,
+                    tipo_persona,
+                    monto,
+                    etiqueta,
+                    no_inventario,
+                    tipo_Material,
+                    otro_tipo_Material,
+                    descripcion },
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {
                     console.log(data);
-                    alert('succes');
+                    
                 },
                 error: function (err) {
                     console.log(err);
                 }
-            });*/
-
-            
-
+                 });              
+            }else{
+                notificacion('Monto a pagar no puede ser de $0.00', 'error')
+            }
         }
     } else {
         notificacion('Días de retraso debe de ser mayor o igual 1', 'error');
     }
-
-
 }
+

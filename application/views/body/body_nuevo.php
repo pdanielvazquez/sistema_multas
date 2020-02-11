@@ -61,8 +61,12 @@
                         <label for="etiqueta">Material</label>
                         <select name="etiqueta" id="etiqueta" class="form-control" >
                           <option disabled selected >Seleccionar</option>
-                          <option value="blanca">Etiqueta Blanca</option>
-                          <option value="verde">Etiqueta Verde</option>
+                          <?php
+                          foreach ($etiquetas as $key => $value) {
+                            echo "<option value='".$value->id_etiqueta."'>Etiqueta ".$value->nombre."</option>";
+                          }
+                          ?>
+                          
                         </select>
                       </div>
                     </div>

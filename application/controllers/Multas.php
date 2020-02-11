@@ -4,27 +4,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Multas extends CI_Controller
 {
 
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 		$this->load->model("Estudiante_Model");
 		$this->load->model("Maestro_Model");
 		$this->load->model("Material_Model");
 		$this->load->model("Multa_Model");
-		
+		$this->load->model("Etiquetas_Model");
 		// Cargamos la librería
 		$this->load->library('pdf');
 		
-	}
-
-	public function leer(){
-		$filename = 'documento_ejemplo';
-		$datos=array(
-			'nombre'=>"luis Enrique"
-		);
-		//$this->session->userdata('datos');
-		$html = $this->load->view('pdf/pdfejemplo', $datos, TRUE);
-		$this->pdf->generate($html, $filename, true, 'Letter', 'portrait');
 	}
 
 	public function index(){
@@ -43,6 +32,7 @@ class Multas extends CI_Controller
 		$TipoPersona = $this->input->post('personal');
 		$datos = $this->Multa_Model->get_precio($TipoPersona);
 		$precio = 0;
+
 		foreach ($datos as $key => $value) {
 			$precio = $value->precio;
 		}
@@ -63,19 +53,41 @@ class Multas extends CI_Controller
 			'lista' => $this->Estudiante_Model->get_select(),
 			'lista_id'=>$this->Maestro_Model->get_id(),
 			'materiales'=>$this->Material_Model->get_material(),
+			'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
 			'fecha' => $fecha
 		);
+		
 		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body/body_nuevo', $data_body);
 		$this->load->view('default/footer_simple');
 	}
 
-	function pdf(){
-		$html = $this->load->view('pdf_exports/plantilla',true);
-		$filename = 'comprobante_pago';
-		// generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
-		$this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
-			
+	function multar(){
+
+		$fecha_creada=$this->input->post('fecha_devolucion');
+		$fecha_limite=$this->input->post('fecha_limite');
+		$etiqueta=$this->input->post('etiqueta');
+		$tipo_personal=$this->input->post('tipo_persona');
+		$multado=$this->input->post('identidicador');
+		$monto=$this->input->post('monto');
+		$no_inventario=$this->input->post('no_inventario');
+		$tipo_material=$this->input->post('tipo_Material');
+		$otro_material=$this->input->post('otro_tipo_Material');
+		$descripcion=$this->input->post('descripcion');
+		$nombre=$this->input->post('nombre');
+
+		$formato=explode('/',$fecha_creada);
+		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];		
+		$res =$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,
+		$tipo_personal,$multado,$monto,$no_inventario,$tipo_material,$otro_material,$descripcion );
+
+		if($res){
+			$res=array('status'=>'success');
+		}else{
+			$res=array('status'=>'error');
+		}
+		echo json_encode($res);
+		
 	}
 }
 /*

@@ -37,7 +37,6 @@ class Precios extends CI_Controller {
 			echo json_encode($r);
 		}
 	}
-
 	function update_precio(){
 
 	}
