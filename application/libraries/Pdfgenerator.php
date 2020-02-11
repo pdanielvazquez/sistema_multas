@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 // Al requerir el autoload, cargamos todo lo necesario para trabajar
-require_once APPPATH . "/third_party/dompdf/autoload.inc.php";
+require_once APPPATH."/third_party/dompdf/autoload.inc.php";
+
+//require_once('../third_party/dompdf/autoload.inc.php');
+
 
 use Dompdf\Dompdf;
 
@@ -16,9 +19,9 @@ class Pdfgenerator
         $dompdf->render();
         if ($stream) {
             // "Attachment" => 1 hará que por defecto los PDF se descarguen en lugar de presentarse en pantalla.
-            $dompdf->stream($filename.".pdf",array("Attachment" => 1));
+            $dompdf->stream($filename . ".pdf", array("Attachment" => 1));
         } else {
             return $dompdf->output();
         }
-    }
+    }    
 }

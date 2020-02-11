@@ -12,7 +12,7 @@ class Multas extends CI_Controller
 		$this->load->model("Material_Model");
 		$this->load->model("Multa_Model");
 		// Cargamos la librería
-		$this->load->library('pdfgenerator');
+		$this->load->library('Pdfgenerator');
 	}
 
 	public function index(){
@@ -58,9 +58,11 @@ class Multas extends CI_Controller
 		$this->load->view('default/footer_simple');
 	}
 
-	function GeneraPDF(){
-		$obj=$this->input->post('obj');	
-		var_dump($obj);
-		echo json_encode(array('status'=>$obj));
+	function pdf(){
+		$html = $this->load->view('pdf_exports/plantilla',true);
+		$filename = 'comprobante_pago';
+		// generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
+		$this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
+			
 	}
 }
