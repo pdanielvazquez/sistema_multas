@@ -11,8 +11,19 @@ class Multas extends CI_Controller
 		$this->load->model("Maestro_Model");
 		$this->load->model("Material_Model");
 		$this->load->model("Multa_Model");
+		$this->load->library('pdf');
 		// Cargamos la librería
-		$this->load->library('pdfgenerator');
+		
+	}
+
+	public function leer(){
+		$filename = 'documento_ejemplo';
+		$datos=array(
+			'nombre'=>"luis Enrique"
+		);
+		//$this->session->userdata('datos');
+		$html = $this->load->view('pdf/pdfejemplo', $datos, TRUE);
+		$this->pdf->generate($html, $filename, true, 'Letter', 'portrait');
 	}
 
 	public function index(){

@@ -86,7 +86,7 @@ function calcularPrecio() {
 /**
  * funcion que hace una peticion ajax para saber el precio activo
  * documentacion de libreria
- * //https://codeseven.github.io/toastr/
+ * 
  */
 function get_precio(personal) {
     $.ajax({
