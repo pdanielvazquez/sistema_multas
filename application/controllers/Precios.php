@@ -19,8 +19,7 @@ class Precios extends CI_Controller {
 		);
 		$this->load->view('default/header_simple', $data_header);
 		$this->load->view('body/body_precios',$data_body);
-        $this->load->view('default/footer_simple');
-        
+        $this->load->view('default/footer_simple');        
 	}
 
 	function Insertprecio(){

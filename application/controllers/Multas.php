@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Multas extends CI_Controller
 {
-
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("Estudiante_Model");
@@ -62,7 +61,7 @@ class Multas extends CI_Controller
 		$this->load->view('default/footer_simple');
 	}
 
-	function multar(){
+	public function multar(){
 
 		$fecha_creada=$this->input->post('fecha_devolucion');
 		$fecha_limite=$this->input->post('fecha_limite');
@@ -89,7 +88,23 @@ class Multas extends CI_Controller
 		echo json_encode($res);
 		
 	}
+
+	function pdf(){
+		$data_header = array('titulo' => 'Sistema de multas',
+		'usuario' => 'Usuario'
+		);	
+
+		$list=$this->Multa_Model->get_litas_precios();			
+		/*$data_body=array(
+		'titulo_seccion'=>'Precios',
+		'list'=>$list
+		);*/
+		$this->load->view('default/header_simple', $data_header);
+		$this->load->view('body/body_pdf');
+		$this->load->view('default/footer_simple');  
+	}
 }
+
 /*
 
 $this->session->set_userdata($arraydata);
