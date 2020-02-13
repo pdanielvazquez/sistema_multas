@@ -139,109 +139,70 @@
 		                    <h6 class="m-0 font-weight-bold text-primary">Materiales entregados de manera extemporanea</h6>
 		                  </div>
 		                  <div class="card-body">
-
 		                    <div id="agregar_material">
-		                      <fieldset>
-		                        <!-- Button trigger modal -->
-		                        <legend><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><i class="far fa-plus-square"></i> Agregar material</a></legend>
-		                        <div class="content">
-		                          <div class="row">
-		                            <div class="col-xs-12 col-md-6">
-		                              <!-- Modal -->
-		                              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		                                <div class="modal-dialog modal-dialog-centered" role="document">
-		                                  <div class="modal-content">
-		                                    <div class="modal-header">
-		                                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-		                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                                        <span aria-hidden="true">&times;</span>
-		                                      </button>
-		                                    </div>
-		                                    <div class="modal-body">
-		                                      <div class="form-group">
-		                                        <label>No. de inventario del material</label>
-		                                        <input type="text" name="no_inventario" id="no_inventario" class="form-control" placeholder="Por ejemplo: 12345">
-		                                        </select>
-		                                      </div>
-		                                      <div class="form-group">
-		                                        <label>Tipo de material</label>
-		                                        <select name="tipo_material" id="tipo_material" class="form-control">
-		                                          <option disabled selected>Seleccionar</option>
-		                                          <?php
-                                              foreach ($materiales as $key => $value) {
-                                                echo "<option value='" . $value->id . "'>" . $value->nombre . "</option>";
-                                              }
-                                              ?>
-		                                        </select>
-		                                      </div>
-		                                      <label>Otro tipo de material</label>
-		                                      <input type="text" name="otro_material" id="otro_material" class="form-control" placeholder="Por ejemplo: Tesina, Reporte de servicio, Periodico, etc.">
-		                                      <div class="form-group">
-		                                        <label>Descripción</label>
-		                                        <textarea name="descripcion_material" id="descripcion_material" class="form-control" placeholder="Por ejemplo: Nombre del Libro, Revista, Disco, etc.">
-                                        </textarea>
-		                                      </div>
+		                      <!-- Button trigger modal -->
+		                      <legend>
+								  	<a href="#" data-toggle="modal" data-target="#exampleModalCenter " onclick="clear_inputs();">
+									  	<i class="far fa-plus-square"></i>
+										Agregar material
+									</a>
+								</legend>
+		                      <div class="content">
+		                        <div class="row">
+		                          <div class="col-xs-12 col-md-6">
+		                            <!-- Modal -->
+		                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		                              <div class="modal-dialog modal-dialog-centered" role="document">
+		                                <div class="modal-content">
+		                                  <div class="modal-header text-center">
+		                                    <h5 class="modal-title " id="exampleModalLongTitle">Agregar Material</h5>
+		                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                                      <span aria-hidden="true">&times;</span>
+		                                    </button>
+		                                  </div>
+		                                  <div class="modal-body">
+											  <input type="hidden" id="articulo1" name="articulo1">
+											  <input type="hidden" id="articulo2" name="articulo2">
 
+		                                    <div class="form-group">
+		                                      <label>No. de inventario del material</label>
+		                                      <input type="text" name="no_inventario" id="no_inventario" class="form-control" placeholder="Por ejemplo: 12345">
+		                                      </select>
 		                                    </div>
-		                                    <div class="modal-footer">
-		                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		                                      <button type="button" class="btn btn-primary">Save changes</button>
+		                                    <div class="form-group">
+		                                      <label>Tipo de material</label>
+		                                      <select name="tipo_material" id="tipo_material" class="form-control">
+		                                        <option disabled selected>Seleccionar</option>
+		                                        <?php
+                                            foreach ($materiales as $key => $value) {
+                                              echo "<option value='" . $value->id . "'>" . $value->nombre . "</option>";
+                                            }
+                                            ?>
+		                                      </select>
 		                                    </div>
+		                                    <label>Otro tipo de material</label>
+		                                    <input type="text" name="otro_material" id="otro_material" class="form-control" placeholder="Por ejemplo: Tesina, Reporte de servicio, Periodico, etc.">
+		                                    <div class="form-group">
+		                                      <label>Descripción</label>
+		                                      <textarea name="descripcion_material" id="descripcion_material" class="form-control" placeholder="Por ejemplo: Nombre del Libro, Revista, Disco, etc.">
+                                        </textarea>
+		                                    </div>
+		                                  </div>
+		                                  <div class="modal-footer">
+		                                    <button type="button" class="btn btn-secondary" onclick="clear_inputs();"  data-dismiss="modal">Close</button>
+		                                    <button type="button" class="btn btn-primary" onclick="addArticulo()">Agregar Material</button>
 		                                  </div>
 		                                </div>
 		                              </div>
 		                            </div>
-		                            <ul class="list-group col-12">
-                                  
-                                  <li class="list-group-item active text-center">Listado Materiales</li>
-		                              <li class="list-group-item ">xxxxxxxxxx Revista Lorem ipsum dolor sit amet. lorem15</li>
-		                            </ul>
 		                          </div>
+		                          <ul class="list-group col-12" id="lista">
+		                            <li class="list-group-item active text-center">Listado Materiales</li>
+		                            
+		                          </ul>
 		                        </div>
-
-		                        <!--<div>
-                                  <button class="btn btn-primary">Agregar</button>
-                                </div>-->
-		                      </fieldset>
+		                      </div>
 		                    </div>
-		                    <!--
-                            <div class="table-responsive">
-                              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                  <tr>
-                                    <th>No. Inventario</th>
-                                    <th>Tipo de material</th>
-                                    <th>Descripción</th>
-                                  </tr>
-                                </thead>
-                                <tfoot>
-                                  <tr>
-                                    <th>No. Inventario</th>
-                                    <th>Tipo de material</th>
-                                    <th>Descripción</th>
-                                  </tr>
-                                </tfoot>
-                                <tbody>
-                                  <tr>
-                                    <td>28100</td>
-                                    <td>Libro</td>
-                                    <td>Algebra Lineal</td>
-                                  </tr>
-                                  <tr>
-                                    <td>15983</td>
-                                    <td>Revista</td>
-                                    <td>Almanaque 2018 - IEEE</td>
-                                  </tr>
-                                  <tr>
-                                    <td>35741</td>
-                                    <td>Revista</td>
-                                    <td>Junior Technical</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                                          -->
-		                    <!-- .tabla responsiva -->
 		                  </div>
 		                  <!-- .card-body -->
 		                </div>

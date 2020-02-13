@@ -89,7 +89,7 @@ class Multas extends CI_Controller
 		
 	}
 
-	function pdf(){
+	public function pdf(){
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
 		);	
