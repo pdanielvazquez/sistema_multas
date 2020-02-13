@@ -421,26 +421,37 @@ function multar() {
 
 function addArticulo() {
     let Btipo_material = Bno_inventario = 0;
+    //validamos informacion de no de  inventario y material
     let no_inventario = get_Valor('no_inventario');
     (no_inventario == '') ? notificacion('Agrega No. Inventario', 'error') : Bno_inventario = 1;
     let tipo_material = get_Valor('tipo_material');
     (tipo_material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Btipo_material = 1;
+
     if (Btipo_material && Bno_inventario) {
         let otro_tipo_Material = get_Valor('otro_material');
         let descripcion = get_Valor('descripcion_material');
         var Elemento = document.getElementById("lista");
-
+        /**
+         * checamos que no exista el item con el id material2 ya que este es el limite de elementos 
+         * si no existe el item con el id material1 se  creo o si exite pero el item con el material2 no se 
+         * crea el item con el id material2
+         * 
+         */
         if (document.getElementById('material2')) {
             notificacion('No puedes agregar mas de 2 materiales', 'advertencia');
         } else {
             var nameTipe;
+            //dependiendo del id de la bd jala la palabra
             if(tipo_material==1) nameTipe="REVISTA";
             if(tipo_material==2) nameTipe="LIBRO";
             if(tipo_material==3) nameTipe="CD";
             if(tipo_material==4) nameTipe="OTRO";
+
             if (document.getElementById('material1')) {
                 Elemento.innerHTML += `<li class="list-group-item " id="material2">No. inventario: ${no_inventario}, Tipo: ${nameTipe} </li>`;
                 notificacion('Material agregado', 'success');
+
+                //pasamos el valor al input que recibiremos en php
                 document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
                 console.log(get_Valor('articulo2'));
             }
@@ -448,6 +459,7 @@ function addArticulo() {
                 if (!document.getElementById('material1')) {
                     Elemento.innerHTML = `<li class="list-group-item " id="material1">No. inventario: ${no_inventario}, Tipo: ${nameTipe}</li>`;
                     notificacion('Material agregado', 'success');
+                    //pasamos el valor al input que recibiremos en php
                     document.getElementById('articulo1').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
                     console.log(get_Valor('articulo1'));
                 }
