@@ -11,7 +11,7 @@ class Multas extends CI_Controller
 		$this->load->model("Multa_Model");
 		$this->load->model("Etiquetas_Model");
 		// Cargamos la librería
-		$this->load->library('pdf');
+		//$this->load->library('pdf');
 		
 	}
 
@@ -69,23 +69,35 @@ class Multas extends CI_Controller
 		$tipo_personal=$this->input->post('tipo_persona');
 		$multado=$this->input->post('identidicador');
 		$monto=$this->input->post('monto');
-		$no_inventario=$this->input->post('no_inventario');
-		$tipo_material=$this->input->post('tipo_Material');
-		$otro_material=$this->input->post('otro_tipo_Material');
-		$descripcion=$this->input->post('descripcion');
+		$material1=$this->input->post('material1');
+		$material2=$this->input->post('material2');
 		$nombre=$this->input->post('nombre');
 
+		
 		$formato=explode('/',$fecha_creada);
-		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];		
-		$res =$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,
-		$tipo_personal,$multado,$monto,$no_inventario,$tipo_material,$otro_material,$descripcion );
+		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];	
 
-		if($res){
+		$datos=array(
+			'fecha creada'=>$fecha_creada,
+			'fecha limite'=>$fecha_limite,
+			'etiqueta'=>$etiqueta,
+			'Tipo personal'=>$tipo_personal,
+			'multado'=>$multado,
+			'monto'=>$monto,
+			'nombre'=>$nombre,
+			'material1'=>$material1,
+			'material2'=>$material2
+		);
+		$this->session->set_userdata($datos);
+		/*$res =$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,
+		$tipo_personal,$multado,$monto,$no_inventario,$tipo_material,$otro_material,$descripcion );
+		*/
+		/*if($res){
 			$res=array('status'=>'success');
 		}else{
 			$res=array('status'=>'error');
-		}
-		echo json_encode($res);
+		}*/
+		echo json_encode($datos);
 		
 	}
 
