@@ -323,7 +323,7 @@ function multar() {
     //validacion de dias de retraso que sea 1 o mayor
     if (dias != 'Error') {
         //banderas
-        let Bpersonal = Bmaterial = Bmonto = Bno_inventario = Btipo_material = 0;
+        let Bpersonal = Bmaterial = Bmonto = 0;
 
         let personal = document.getElementById("tipo_personal").value;
         (personal == 'Seleccionar') ? notificacion('Debes seleccionar tipo de personal', 'error') : Bpersonal = 1;
@@ -334,13 +334,7 @@ function multar() {
         let monto = document.getElementById("monto_numero").value;
         (monto == '') ? notificacion('Asigna fecha valida', 'error') : Bmonto = 1;
 
-        let no_inventario = document.getElementById("no_inventario").value;
-        (no_inventario == '') ? notificacion('Agrega No. Inventario', 'error') : Bno_inventario = 1;
-
-        let tipo_material = document.getElementById("tipo_material").value;
-        (tipo_material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Btipo_material = 1;
-
-        if (Bpersonal && Bmaterial && Bmonto && Bno_inventario && Btipo_material) {
+        if (Bpersonal && Bmaterial && Bmonto) {
             notificacion('validacion completa', 'success');
             let fecha_limite = get_Valor('fecha_lim_dev');
             let fecha_devolucion = get_Valor('fecha_dev');
@@ -431,6 +425,33 @@ function addArticulo() {
         let otro_tipo_Material = get_Valor('otro_material');
         let descripcion = get_Valor('descripcion_material');
         var Elemento = document.getElementById("lista");
+
+        if (document.getElementById('material2')) {
+            notificacion('No puedes agregar mas de 2 materiales', 'advertencia');
+        } else {
+            var nameTipe;
+            if (tipo_material == 1) nameTipe = "REVISTA";
+            if (tipo_material == 2) nameTipe = "LIBRO";
+            if (tipo_material == 3) nameTipe = "CD";
+            if (tipo_material == 4) nameTipe = "OTRO";
+            if (document.getElementById('material1')) {
+                Elemento.innerHTML += `<li class="list-group-item " id="material2">No. inventario: ${no_inventario}, Tipo: ${nameTipe} </li>`;
+                notificacion('Material agregado', 'success');
+                document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
+                console.log(get_Valor('articulo2'));
+            }
+            else {
+                if (!document.getElementById('material1')) {
+                    Elemento.innerHTML = `<li class="list-group-item " id="material1">No. inventario: ${no_inventario}, Tipo: ${nameTipe}</li>`;
+                    notificacion('Material agregado', 'success');
+                    document.getElementById('articulo1').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
+                    console.log(get_Valor('articulo1'));
+                }
+            }
+        }
+        let otro_tipo_Material = get_Valor('otro_material');
+        let descripcion = get_Valor('descripcion_material');
+        var Elemento = document.getElementById("lista");
         /**
          * checamos que no exista el item con el id material2 ya que este es el limite de elementos 
          * si no existe el item con el id material1 se  creo o si exite pero el item con el material2 no se 
@@ -442,18 +463,16 @@ function addArticulo() {
         } else {
             var nameTipe;
             //dependiendo del id de la bd jala la palabra
-            if(tipo_material==1) nameTipe="REVISTA";
-            if(tipo_material==2) nameTipe="LIBRO";
-            if(tipo_material==3) nameTipe="CD";
-            if(tipo_material==4) nameTipe="OTRO";
+            if (tipo_material == 1) nameTipe = "REVISTA";
+            if (tipo_material == 2) nameTipe = "LIBRO";
+            if (tipo_material == 3) nameTipe = "CD";
+            if (tipo_material == 4) nameTipe = "OTRO";
 
             if (document.getElementById('material1')) {
-                Elemento.innerHTML += `<li class="list-group-item " id="material2">No. inventario: ${no_inventario}, Tipo: ${nameTipe} </li>`;
                 notificacion('Material agregado', 'success');
-
                 //pasamos el valor al input que recibiremos en php
-                document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
                 console.log(get_Valor('articulo2'));
+                document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
             }
             else {
                 if (!document.getElementById('material1')) {
@@ -474,6 +493,4 @@ function clear_inputs() {
     document.getElementById('otro_material').value = "";
     document.getElementById('descripcion_material').value = "";
 }
-
-
 
