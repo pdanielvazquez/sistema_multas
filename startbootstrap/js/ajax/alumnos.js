@@ -129,7 +129,6 @@ function formatoPrecio(Cantidad) {
     precios["numeroLetras"] = multaLetras;
     return precios;
 }
-
 /*
 *convertidor de numeros a letras
 */
@@ -270,7 +269,6 @@ var numeroALetras = (function () {
             letrasMonedaCentavoPlural: currency.centPlural || 'CHIQUI PESOS CHILENOS',
             letrasMonedaCentavoSingular: currency.centSingular || 'CHIQUI PESO CHILENO'
         };
-
         if (data.centavos > 0) {
             data.letrasCentavos = 'CON ' + (function () {
                 if (data.centavos == 1)
@@ -279,7 +277,6 @@ var numeroALetras = (function () {
                     return Millones(data.centavos) + ' ' + data.letrasMonedaCentavoPlural;
             })();
         };
-
         if (data.enteros == 0)
             return 'CERO ' + data.letrasMonedaPlural + ' ' + data.letrasCentavos;
         if (data.enteros == 1)
@@ -309,38 +306,28 @@ function notificacion(msg, err) {
         toastr.warning(msg, 'Advertencia')
     }
 }
-
-
-
-
 /**
  * manda los datos al controlador de multas para generar la multa 
  */
 function multar() {
-    alert('verifica');
     let dias = document.getElementById("dias_retraso").value;
-
     //validacion de dias de retraso que sea 1 o mayor
     if (dias != 'Error') {
         //banderas
-        let Bpersonal = Bmaterial = Bmonto = Bno_inventario = Btipo_material = 0;
-
+        let Bpersonal = Bmaterial = Bmonto = Btipo_material = 0;
         let personal = document.getElementById("tipo_personal").value;
         (personal == 'Seleccionar') ? notificacion('Debes seleccionar tipo de personal', 'error') : Bpersonal = 1;
-
         let material = document.getElementById("etiqueta").value;
         (material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Bmaterial = 1;
-
         let monto = document.getElementById("monto_numero").value;
         (monto == '') ? notificacion('Asigna fecha valida', 'error') : Bmonto = 1;
-
-        let no_inventario = document.getElementById("no_inventario").value;
-        (no_inventario == '') ? notificacion('Agrega No. Inventario', 'error') : Bno_inventario = 1;
-
-        let tipo_material = document.getElementById("tipo_material").value;
-        (tipo_material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Btipo_material = 1;
-
-        if (Bpersonal && Bmaterial && Bmonto && Bno_inventario && Btipo_material) {
+        let articulo = document.getElementById("articulo1").value;
+        if(articulo.length==0){
+            notificacion('No has agregado ningun material', 'error')
+        }else{
+            Bno_inventario =Btipo_material= 1;
+        }
+        if (Bpersonal && Bmaterial && Bmonto && Btipo_material&&Bno_inventario) {
             notificacion('validacion completa', 'success');
             let fecha_limite = get_Valor('fecha_lim_dev');
             let fecha_devolucion = get_Valor('fecha_dev');
@@ -348,14 +335,8 @@ function multar() {
             let tipo_persona = get_Valor('tipo_personal');
             let monto = get_Valor('monto_numero');
             let etiqueta = get_Valor('etiqueta');
-
-            let no_inventario = get_Valor('no_inventario');
-            let tipo_Material = get_Valor('tipo_material');
-            let otro_tipo_Material = get_Valor('otro_material');
-            let descripcion = get_Valor('descripcion_material');
             let identidicador;
             let nombre;
-
             if (tipo_persona == 'alumno') {
                 identidicador = get_Valor('matricula');
                 nombre = get_Valor('name_alumno');
@@ -363,22 +344,14 @@ function multar() {
                 identidicador = get_Valor('id_maestro');
                 nombre = get_Valor('name_maestro');
             }
-
-            const formulario = ({
-                nombre,
-                identidicador,
-                fecha_limite,
-                fecha_devolucion,
-                diasrestraso,
-                tipo_persona,
-                monto,
-                etiqueta,
-                no_inventario,
-                tipo_Material,
-                otro_tipo_Material,
-                descripcion
-            });
-            console.log(formulario);
+            let material1='null';
+            let material2='null';
+            if(document.getElementById('articulo1')){
+                material1=get_Valor('articulo1');
+            }
+            if(document.getElementById('articulo2')){
+                material2=get_Valor('articulo2');  
+            }            
             if (monto != "$0.00") {
                 $.ajax({
                     url: '../multas/multar',
@@ -391,16 +364,13 @@ function multar() {
                         tipo_persona,
                         monto,
                         etiqueta,
-                        no_inventario,
-                        tipo_Material,
-                        otro_tipo_Material,
-                        descripcion
+                        material1,
+                        material2
                     },
                     type: 'POST',
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
-
                     },
                     error: function (err) {
                         console.log(err);
@@ -416,9 +386,8 @@ function multar() {
 }
 
 /**
- * agrega los nodos 
+ * sirve para gregar articulos
  */
-
 function addArticulo() {
     let Btipo_material = Bno_inventario = 0;
     let no_inventario = get_Valor('no_inventario');
@@ -433,20 +402,17 @@ function addArticulo() {
         if (document.getElementById('material2')) {
             notificacion('No puedes agregar mas de 2 materiales', 'advertencia');
         } else {
-            var nameTipe;
-            if(tipo_material==1) nameTipe="REVISTA";
-            if(tipo_material==2) nameTipe="LIBRO";
-            if(tipo_material==3) nameTipe="CD";
-            if(tipo_material==4) nameTipe="OTRO";
+            
             if (document.getElementById('material1')) {
-                Elemento.innerHTML += `<li class="list-group-item " id="material2">No. inventario: ${no_inventario}, Tipo: ${nameTipe} </li>`;
+
+                Elemento.innerHTML +=  item_forman(2,no_inventario,tipo_material,otro_tipo_Material,descripcion);                
                 notificacion('Material agregado', 'success');
                 document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
                 console.log(get_Valor('articulo2'));
             }
             else {
                 if (!document.getElementById('material1')) {
-                    Elemento.innerHTML = `<li class="list-group-item " id="material1">No. inventario: ${no_inventario}, Tipo: ${nameTipe}</li>`;
+                    Elemento.innerHTML = item_forman(1,no_inventario,tipo_material,otro_tipo_Material,descripcion);
                     notificacion('Material agregado', 'success');
                     document.getElementById('articulo1').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
                     console.log(get_Valor('articulo1'));
@@ -462,6 +428,33 @@ function clear_inputs() {
     document.getElementById('otro_material').value = "";
     document.getElementById('descripcion_material').value = "";
 }
+/**
+ * @param {int} numero sirve para poner el id 
+ * @param {String} no_inventario 
+ * @param {String} otro_tipo_Material 
+ * @param {String} descripcion 
+ */
 
-
-
+function item_forman(numero,no_inventario,tipo_material, otro_tipo_Material, descripcion) {
+    var nameTipe;
+    //dependiendo del id de la bd jala la palabra
+    if (tipo_material == 1) nameTipe = "REVISTA";
+    if (tipo_material == 2) nameTipe = "LIBRO";
+    if (tipo_material == 3) nameTipe = "CD";
+    if (tipo_material == 4) nameTipe = "OTRO";
+    if (tipo_material != '', descripcion == '') {
+        return `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Otro tipo: ${otro_tipo_Material} </li>`;
+    } else {
+        if (tipo_material == '', descripcion != '') {
+            return  `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Descripción: ${descripcion} </li>`;
+        } else {
+            if (tipo_material != '', descripcion != '') {
+                return `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Otro tipo: ${otro_tipo_Material} Descripción: ${descripcion} </li>`;
+            } else {
+                if(tipo_material == '', descripcion == '') {
+                    return `<li class="list-group-item " id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} </li>`;
+                }
+            }
+        }
+    }
+}
