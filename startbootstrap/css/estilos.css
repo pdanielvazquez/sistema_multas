@@ -11,41 +11,46 @@
     background: rgba(2, 121, 219, 0.2);
 }
 
-.tam {
-    margin: auto;
-    width: 800px;
-}
+    .tam {
+        margin: auto;
+        width: 800px;
+    }
 
-table#mitabla {
-    border-collapse: collapse;
-    border: 1px solid rgb(19, 18, 18);
-    font-size: 12px;
-}
+    table.mitabla {
+        border-collapse: collapse;
+        border: 1px solid rgb(19, 18, 18);
+        font-size: 12px;
+    }
 
+    table.mitabla td {
+        padding: 5px 10px;
+    }
 
+    .imagen {
+        width: 239px;
+        text-align: justify;
+        float: left;
 
-table#mitabla td {
-    padding: 5px 10px;
-}
+    }
 
-.imagen {
-    width: 239px;
-    text-align: justify;
-    float: left;
+    .info {
+        width: 557px;
+        float: right;
+    }
 
-}
+    .formatoText {
+        line-height: 5px;
+    }
 
-.info {
-    width: 557px;
-    float: right;
-}
+    .borde {
+        border-top: 1px solid rgb(19, 18, 18);
+        border-right: 1px solid rgb(19, 18, 18);
+        border-left: 1px solid rgb(19, 18, 18);
+    }
 
-.formatoText {
-    line-height: 5px;
-}
-
-.borde {
-    border-top: 1px solid rgb(19, 18, 18);
-    border-right: 1px solid rgb(19, 18, 18);
-    border-left: 1px solid rgb(19, 18, 18);
+@media print {
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
 }

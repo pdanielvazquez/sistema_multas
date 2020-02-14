@@ -11,8 +11,7 @@ class Multas extends CI_Controller
 		$this->load->model("Multa_Model");
 		$this->load->model("Etiquetas_Model");
 		// Cargamos la librería
-		//$this->load->library('pdf');
-		
+		//$this->load->library('pdf');		
 	}
 
 	public function index(){
@@ -69,57 +68,48 @@ class Multas extends CI_Controller
 		$tipo_personal=$this->input->post('tipo_persona');
 		$multado=$this->input->post('identidicador');
 		$monto=$this->input->post('monto');
+		$montoTexto=$this->input->post('montoText');
 		$material1=$this->input->post('material1');
 		$material2=$this->input->post('material2');
 		$nombre=$this->input->post('nombre');
-
+		$diasAtrasados=$this->input->post('diasAtrasados');
 		
 		$formato=explode('/',$fecha_creada);
 		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];	
 
-		$datos=array(
-			'fecha creada'=>$fecha_creada,
-			'fecha limite'=>$fecha_limite,
-			'etiqueta'=>$etiqueta,
-			'Tipo personal'=>$tipo_personal,
-			'multado'=>$multado,
-			'monto'=>$monto,
-			'nombre'=>$nombre,
-			'material1'=>$material1,
-			'material2'=>$material2
+		$multa=array(
+			'datos'=>array(			
+				'fecha creada'=>$fecha_creada,
+				'fecha limite'=>$fecha_limite,
+				'etiqueta'=>$etiqueta,
+				'Tipo personal'=>$tipo_personal,
+				'multado'=>$multado,
+				'monto'=>$monto,
+				'montoText'=>$montoTexto,
+				'dias_arasados'=>$diasAtrasados,
+				'nombre'=>$nombre,
+				'material1'=>$material1,
+				'material2'=>$material2,
+				'ruta'=>base_url('/multas/pdf')
+			)
 		);
-		$this->session->set_userdata($datos);
-		/*$res =$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,
-		$tipo_personal,$multado,$monto,$no_inventario,$tipo_material,$otro_material,$descripcion );
-		*/
-		/*if($res){
-			$res=array('status'=>'success');
-		}else{
-			$res=array('status'=>'error');
-		}*/
-		echo json_encode($datos);
-		
+		$this->session->set_userdata($multa);
+		echo json_encode($multa);		
 	}
 
 	public function pdf(){
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
-		);	
-
+		);
 		$list=$this->Multa_Model->get_litas_precios();			
-		/*$data_body=array(
-		'titulo_seccion'=>'Precios',
-		'list'=>$list
-		);*/
-		$this->load->view('default/header_simple', $data_header);
+		$sesion=$this->session->has_userdata('multa');
+		echo json_encode($this->session->userdata('datos'));
+		$this->load->view('default/head_pdf', $data_header);
 		$this->load->view('body/body_pdf');
-		$this->load->view('default/footer_simple');  
+		//$this->load->view('default/footer_simple');  
 	}
 }
-
 /*
-
 $this->session->set_userdata($arraydata);
-
 **/
 
