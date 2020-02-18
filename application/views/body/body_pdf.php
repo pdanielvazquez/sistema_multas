@@ -1,4 +1,7 @@
 <!-- Begin Page Content -->
+<?php
+var_dump($this->session->datos); 
+?>
 <div class="container-fluid col-12 ">
     <div style="clear: both"></div>
     <div class="tam borde " style="height: auto;">
@@ -23,19 +26,19 @@
             <tr>
                 <th>
                     Fecha limite de devolución
-                    <p>xx/xx/xxxx</p>
+                    <p><?=$fecha_limite?></p>
                 </th>
                 <th>
                     Fecha de devolucion
-                    <p>xx/xx/xxxx</p>
+                    <p><?=$fecha_creada?></p>
                 </th>
                 <th>
                     Días de atraso
-                    <p>NO Días </p>
+                    <p><?= $dias_arasados?></p>
                 </th>
             </tr>
             <tr>
-                <th colspan="3">Monto economico $000.00 (cantidad de pesos mexcanos..)</th>
+                <th colspan="3">Monto economico <?=$monto?> <?= $montoText ?></th>
             </tr>
             <!--<td rowspan="2">Valor</td>
                 <th colspan="2">Titulo 2</th>
@@ -56,8 +59,7 @@
             </tr>
             <tr>
                 <th colspan="2">
-                    <span style="float:left;margin-left: 30px;">Nombre del usuario: Lorem ipsum dolor sit amet
-                        consectetur.</span>
+                    <span style="float:left;margin-left: 30px;">Nombre del usuario:<?= $nombre?> </span>
                     <span style="float: right; margin-right: 30px;">Docente o Administrativo|Alumno</span>
 
                 </th>

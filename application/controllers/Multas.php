@@ -75,14 +75,18 @@ class Multas extends CI_Controller
 		$diasAtrasados=$this->input->post('diasAtrasados');
 		
 		$formato=explode('/',$fecha_creada);
-		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];	
+		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];
+
+		#formatos de fecha para la vista
+		$View_fecha_creada=$this->FechaDormato($fecha_creada);
+		$View_fecha_limite=$this->FechaDormato($fecha_limite);
 
 		$multa=array(
 			'datos'=>array(			
-				'fecha creada'=>$fecha_creada,
-				'fecha limite'=>$fecha_limite,
+				'fecha_creada'=>$View_fecha_creada,
+				'fecha_limite'=>$View_fecha_limite,
 				'etiqueta'=>$etiqueta,
-				'Tipo personal'=>$tipo_personal,
+				'Tipo_personal'=>$tipo_personal,
 				'multado'=>$multado,
 				'monto'=>$monto,
 				'montoText'=>$montoTexto,
@@ -94,21 +98,31 @@ class Multas extends CI_Controller
 			)
 		);
 		$this->session->set_userdata($multa);
-		echo json_encode($multa);		
+		//echo json_encode($multa);		
 	}
 
 	public function pdf(){
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
 		);
-		$list=$this->Multa_Model->get_litas_precios();			
-		$sesion=$this->session->has_userdata('multa');
-		echo json_encode($this->session->userdata('datos'));
+		$data_multa=$this->session->datos;
+		//$list=$this->Multa_Model->get_litas_precios();			
+		//$sesion=$this->session->has_userdata('multa');
+		//echo json_encode($this->session->datos);
 		$this->load->view('default/head_pdf', $data_header);
-		$this->load->view('body/body_pdf');
+		$this->load->view('body/body_pdf',$data_multa);
 		//$this->load->view('default/footer_simple');  
 	}
+	/***
+	 * Da formato de la fecha para la vista
+	 */
+	public function FechaDormato($fecha){
+		$separa=explode('-',$fecha);
+		$newFecha=$separa[2].'/'.$separa[1].'/'.$separa[0];
+		return $newFecha;
+	}
 }
+
 /*
 $this->session->set_userdata($arraydata);
 **/
