@@ -378,7 +378,6 @@ function multar() {
                         //console.log(data);
                         //window.location=data.datos.ruta;      
                         window.open(data.datos.ruta, '_blank');
-
                     },
                     error: function (err) {
                         console.log(err);
@@ -398,21 +397,21 @@ function multar() {
  */
 function addArticulo() {
     let Btipo_material = Bno_inventario = 0;
+    //validacion 
     let no_inventario = get_Valor('no_inventario');
     (no_inventario == '') ? notificacion('Agrega No. Inventario', 'error') : Bno_inventario = 1;
+    
     let tipo_material = get_Valor('tipo_material');
     (tipo_material == 'Seleccionar') ? notificacion('Debes seleccionar tipo de material', 'error') : Btipo_material = 1;
+
     if (Btipo_material && Bno_inventario) {
         let otro_tipo_Material = get_Valor('otro_material');
         let descripcion = get_Valor('descripcion_material');
         var Elemento = document.getElementById("lista");
-
         if (document.getElementById('material2')) {
             notificacion('No puedes agregar mas de 2 materiales', 'advertencia');
         } else {
-            
             if (document.getElementById('material1')) {
-
                 Elemento.innerHTML +=  item_forman(2,no_inventario,tipo_material,otro_tipo_Material,descripcion);                
                 notificacion('Material agregado', 'success');
                 document.getElementById('articulo2').value = `${no_inventario},${tipo_material},${otro_tipo_Material},${descripcion}`;
@@ -447,24 +446,24 @@ function clear_inputs() {
 
 function item_forman(numero,no_inventario,tipo_material, otro_tipo_Material, descripcion) {
     var nameTipe;
+
     //dependiendo del id de la bd jala la palabra
     if (tipo_material == 1) nameTipe = "REVISTA";
     if (tipo_material == 2) nameTipe = "LIBRO";
     if (tipo_material == 3) nameTipe = "CD";
     if (tipo_material == 4) nameTipe = "OTRO";
-    if (tipo_material != '', descripcion == '') {
+
+    if(no_inventario!=''&&tipo_material!=''&&otro_tipo_Material==''&&descripcion==''){
+        return `<li class="list-group-item " id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} </li>`;
+
+    }else if(no_inventario!=''&&tipo_material!=''&&otro_tipo_Material!=''&&descripcion==''){
         return `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Otro tipo: ${otro_tipo_Material} </li>`;
-    } else {
-        if (tipo_material == '', descripcion != '') {
-            return  `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Descripción: ${descripcion} </li>`;
-        } else {
-            if (tipo_material != '', descripcion != '') {
-                return `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Otro tipo: ${otro_tipo_Material} Descripción: ${descripcion} </li>`;
-            } else {
-                if(tipo_material == '', descripcion == '') {
-                    return `<li class="list-group-item " id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} </li>`;
-                }
-            }
-        }
-    }
+
+    }else if(no_inventario!=''&&tipo_material!=''&&otro_tipo_Material==''&&descripcion!=''){
+        return  `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Descripción: ${descripcion} </li>`;
+
+    }else if(no_inventario!=''&&tipo_material!=''&&otro_tipo_Material!=''&&descripcion!=''){
+        return `<li class="list-group-item" id="material${numero}">No. inventario: ${no_inventario} Tipo: ${nameTipe} Otro tipo: ${otro_tipo_Material} Descripción: ${descripcion} </li>`;
+
+    }    
 }
