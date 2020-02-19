@@ -85,7 +85,7 @@
         <table border="1" class="tam mitabla">
             <tr>
                 <th>
-                    <p>Elaboró</p><br><br><br><br><br><br>
+                    <p>Elaboró</p><br><br><br><br><br>
                     Nombre de quien sella
                 </th>
                 <th>
@@ -95,7 +95,7 @@
                 <th>
                     Liberación de no adeudo por parte del Módulo de <br>
                     Atencion del centro de información
-                    <br><br><br><br><br><br>
+                    <br><br><br><br><br>
                     Nombre,firma,sello
                 </th>
             </tr>
@@ -192,7 +192,7 @@
         <table border="1" class="tam mitabla">
             <tr>
                 <th>
-                    <p>Elaboró</p><br><br><br><br><br><br>
+                    <p>Elaboró</p><br><br><br><br><br>
                     Nombre de quien sella
                 </th>
                 <th>
@@ -202,7 +202,7 @@
                 <th>
                     Liberación de no adeudo por parte del Módulo de <br>
                     Atencion del centro de información
-                    <br><br><br><br><br><br>
+                    <br><br><br><br><br>
                     Nombre,firma,sello
                 </th>
             </tr>
