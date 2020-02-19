@@ -72,11 +72,7 @@ class Multas extends CI_Controller
 		$diasAtrasados=$this->input->post('diasAtrasados');
 
 		$formato=explode('/',$fecha_creada);
-		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];
-
-		#formatos de fecha para la vista
-		$View_fecha_creada=$this->FechaDormato($fecha_creada);
-		$View_fecha_limite=$this->FechaDormato($fecha_limite);
+		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];	
 
 		$folio=$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,$tipo_personal,$multado,$monto,$material1,$material2);
 
@@ -117,7 +113,7 @@ class Multas extends CI_Controller
 			)
 		);
 		$this->session->set_userdata($multa);
-		//echo json_encode($multa);		
+		echo json_encode($multa);		
 	}
 
 	public function pdf(){
@@ -164,14 +160,6 @@ class Multas extends CI_Controller
     	if ($tipo_material == 2) return "LIBRO";
     	if ($tipo_material == 3) return "CD";
    	 	if ($tipo_material == 4) return "OTRO";
-	}
-	/***
-	 * Da formato de la fecha para la vista
-	 */
-	public function FechaDormato($fecha){
-		$separa=explode('-',$fecha);
-		$newFecha=$separa[2].'/'.$separa[1].'/'.$separa[0];
-		return $newFecha;
 	}
 }
 

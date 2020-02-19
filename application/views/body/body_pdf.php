@@ -1,7 +1,4 @@
-<!-- Begin Page Content -->
-<?php
-var_dump($this->session->datos); 
-?>
+
 <div class="container-fluid col-12 ">
     <div style="clear: both"></div>
     <div class="tam borde " style="height: auto;">
