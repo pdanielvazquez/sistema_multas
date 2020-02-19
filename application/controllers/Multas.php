@@ -9,9 +9,7 @@ class Multas extends CI_Controller
 		$this->load->model("Maestro_Model");
 		$this->load->model("Material_Model");
 		$this->load->model("Multa_Model");
-		$this->load->model("Etiquetas_Model");
-		// Cargamos la librería
-		//$this->load->library('pdf');		
+		$this->load->model("Etiquetas_Model");		
 	}
 
 	public function index(){
@@ -81,10 +79,40 @@ class Multas extends CI_Controller
 		$View_fecha_creada=$this->FechaDormato($fecha_creada);
 		$View_fecha_limite=$this->FechaDormato($fecha_limite);
 
+		$seguardo=$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,$tipo_personal,$multado,$monto,$material1,$material2);
+		if ($seguardo) {
+			$folio=$this->Multa_Model->insert_id();
+
+			$arti1=explode(',',$material1);
+            if ($arti1[0]!=''&&$arti1[1]!='') {
+				$this->Multa_model->add_Materiales($folio,$arti1[0],$arti1[1],$arti1[2],$arti1[3]);
+			}
+
+			$arti2=explode(',',$material2);
+            if ($arti2[0]!=''&&$arti2[1]!='') {
+				$this->Multa_model->add_Materiales($folio,$arti2[0],$arti2[1],$arti2[2],$arti2[3]);				             
+            }
+		}
+		/*
+		 *Este arreglo tendra fa informacion que sera pasada a la session para mantener la informacion
+		*/
+
+		#Damos Formatos a las fechas
+		$fecha_creadaView=$this->FormatoFecha($fecha_creada);
+		$fecha_limiteView=$this->FormatoFecha($fecha_limite);
+
+		#damos formato al tipo Tipo personal
+		($tipo_personal=='alumno')?$tipo_personal='Alumno':$tipo_personal='Docente o Administrativo';
+
+		#FormatoMaterial
+		$material1=$this->FormatoMaterial($material1);
+		$material2=$this->FormatoMaterial($material2);
+		
 		$multa=array(
-			'datos'=>array(			
-				'fecha_creada'=>$View_fecha_creada,
-				'fecha_limite'=>$View_fecha_limite,
+			'datos'=>array(	
+				'folio'=>$folio,	
+				'fecha_creada'=>$fecha_creadaView,
+				'fecha_limite'=>$fecha_limiteView,
 				'etiqueta'=>$etiqueta,
 				'Tipo_personal'=>$tipo_personal,
 				'multado'=>$multado,
@@ -104,14 +132,47 @@ class Multas extends CI_Controller
 	public function pdf(){
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
-		);
-		$data_multa=$this->session->datos;
-		//$list=$this->Multa_Model->get_litas_precios();			
-		//$sesion=$this->session->has_userdata('multa');
-		//echo json_encode($this->session->datos);
+		);			
+		//echo json_encode($this->session->userdata('datos'));
+		$data_multa=$this->session->userdata('datos');
 		$this->load->view('default/head_pdf', $data_header);
 		$this->load->view('body/body_pdf',$data_multa);
-		//$this->load->view('default/footer_simple');  
+	}
+	public function FormatoFecha($fecha){
+		$NewFecha=explode('-',$fecha);
+		return $NewFecha[2].'/'.$NewFecha[1].'/'.$NewFecha[0];
+	}
+	public function FormatoMaterial($cadena){
+		$separa=explode(',',$cadena);
+		$numero=0;
+		$string='';
+		foreach ($separa as $key => $value) {
+			if($value!=''){
+				$numero++;
+				switch ($numero) {
+					case 1:
+						$string.="No. de inventario: $value ";
+						break;
+					case 2:
+						$string.="Tipo de material: ".$this->NombreTipo($value);
+						break;
+					case 3:
+						$string.=" Otro material: $value";
+						break;
+					case 4:
+						$string.=" descripcion: $value";
+						break;
+				}	
+			}					
+		}
+		return $string;
+	}
+
+	public function NombreTipo($tipo_material){
+		if ($tipo_material == 1) return "REVISTA";
+    	if ($tipo_material == 2) return "LIBRO";
+    	if ($tipo_material == 3) return "CD";
+   	 	if ($tipo_material == 4) return "OTRO";
 	}
 	/***
 	 * Da formato de la fecha para la vista
@@ -122,8 +183,4 @@ class Multas extends CI_Controller
 		return $newFecha;
 	}
 }
-
-/*
-$this->session->set_userdata($arraydata);
-**/
 
