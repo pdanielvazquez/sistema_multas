@@ -37,7 +37,7 @@ class Multa_Model extends CI_Model{
     /**
      * funcion que inserta un nuevo precio de la multa
     */
-    function Insert_multa($year,$precio,$persona){
+    public function Insert_multa($year,$precio,$persona){
         if($persona=='alumno'){
             $persona='1';
         }else{
@@ -53,7 +53,6 @@ class Multa_Model extends CI_Model{
         $this->db->insert('preciosmulta',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }
-
     //folio 	fecha_creada 	fecha_limite 	etiqueta 	tipo_personal 	multado 	total 	no_inventario 	tipo_material 	otro_material 	descripcion 
     public function multar($folio,$fecha_creada,$fecha_limite,$etiqueta,$tipo_personal,$multado,$total,$articulo1,$articulo2){        
         if($tipo_personal=='alumno'){
@@ -70,57 +69,14 @@ class Multa_Model extends CI_Model{
             'multado'=>$multado,
             'total'=>$total,
         );
-        //hacemos el insert
+        
         $this->db->insert('multas',$data);        
-        //verificamos que se inserto
-        return ($this->db->affected_rows()!= 1)?false:true;
-        /*$seRegistro=false;
-        ($this->db->affected_rows()!= 1) ? $seRegistro=false : $seRegistro=true;
-        */        
-            //buscamos el folio para regresarlo                                            
-        /*
-          
-          $name='';
-            foreach ($datos as $key => $item) {
-            $name=$item->nombre;
-            }
-        */
-        //$seRegistro=false;
-        //($this->db->affected_rows() != 1) ? $seRegistro=false : $seRegistro=true;
-        /*if ($seRegistro) {
-            $folio= $this->db->insert_id();
-            insertamos los articulos 
-            $arti1=explode(',',$articulo1);
-            if ($arti1[0]!=''&&$arti1[1]!='') {
-                $articulo=array(
-                'id'=>'null',
-                'multa'=>$folio,
-                'no_inventario'=>$arti1[3],
-                'material'=>$arti1[2],
-                'otro'=>$arti1[1],
-                'descripcion'=>$arti1[0]
-                );
-                $this->db->insert('materiales',$articulo);
-            }
-            $arti2=explode(',',$articulo2);
-            if($arti2[0]!=''&&$arti2[1]!=''){
-                $articulo2=array(
-                    'id'=>'null',
-                    'multa'=>$folio,
-                    'no_inventario'=>$arti2[3],
-                    'material'=>$arti2[2],
-                    'otro'=>$arti2[1],
-                    'descripcion'=>$arti2[0]
-                );
-                $this->db->insert('materiales',$articulo2);
-            }            
-        }*/
+        
+        return $this->db->insert_id();                                          
     }
 
-    
-
-    public function add_Materiales($folio,$No_inventario,$material,$otro,$descripcion){
-        $articulo=array(
+    public function addMateriales($folio,$No_inventario,$material,$otro,$descripcion){        
+        $material=array(
             'id'=>'null',
             'multa'=>$folio,
             'no_inventario'=>$No_inventario,
@@ -128,13 +84,38 @@ class Multa_Model extends CI_Model{
             'otro'=>$otro,
             'descripcion'=>$descripcion
         );
-        $this->db->insert('materiales',$articulo);
+
+        $this->db->insert('materiales',$material);
+        return ($this->db->affected_rows() != 1) ? false : true;
     }
 
-    /**
-     * regresa el ultimo folio insertado de una multa
-    */   
-    function get_Folio(){
-        return $this->db->insert_id();
+    public function agregaMateriales($folio,$inventario,$etiqueta,$persona,$descripcion){
+        if($persona=='alumno'){
+            $persona='1';
+        }else{
+            $persona='2';
+        }
+        $data = array(
+            'id'=>'null',
+            'multa'=>$folio,
+            'no_inventario'=>$inventario,
+            'material'=>$etiqueta,
+            'otro'=>$persona,
+            'descripcion'=>$descripcion
+        );
+        $this->db->insert('materiales',$data);
+        return ($this->db->affected_rows() != 1) ? false : true;                              
+    }
+    public function asigna_Material($var1,$var2,$var3,$var4,$var5){        
+        $data = array(
+            'id'=>'null',
+            'multa'=>$var1,
+            'no_inventario'=>$var2,
+            'material'=>$var3,
+            'otro'=>$var4,
+            'descripcion'=>$var5
+        );
+        $this->db->insert('materiales',$data);
+        return ($this->db->affected_rows() != 1) ? false : true;   
     }
 }
