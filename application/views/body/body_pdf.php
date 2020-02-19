@@ -4,8 +4,8 @@
     <div class="tam borde " style="height: auto;">
         <div class="imagen ">
             <img src="<?= base_url('startbootstrap/img/utplogo.png') ?>" width="80px"><br>
-            <p class=""> Lorem,veniam, voluptatum </p>
-            <p class=""> Lorem,veniam, voluptatum </p>
+            <p style="text-align: center"> Centro de información <br>
+             "ing. Carlos Vallejo Márquez"</p>
         </div>
         <div class="info ">
             <p style="float: right;margin-right: 10px;">Folio:<?= $folio ?></p>
@@ -13,10 +13,13 @@
                 Centro de información <br>
                 ing. Carlos Vallejo Márquez <br>
             </p>
-            <p style="text-align: justify;"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
-                aliquid provident voluptatum atque, vel recusandae error ducimus suscipit fuga labore libero sequi
-                tempore quae eum in reprehenderit. Voluptatum, odit!</p>
-        </div>
+
+            <p style="text-align: justify; font-size:12px"> 
+                FORMATO PARA GESTIONAR LA ORDEN DE COBRO  POR CONCEPTO DE USO O
+                APROVECHAMIENTO DE CADA UNIDAD DE MATERIAL DEL CENTRO DE INFORMACIÓN,
+                A PARTIR DEL SEXTO DÍA HÁBIL POR CADA DÍA NATURAL
+            </p>
+        </div >
     </div>
     <div class="tam borde" style="height: auto;">
         <table border="1" class="tam mitabla">
@@ -82,7 +85,7 @@
         <table border="1" class="tam mitabla">
             <tr>
                 <th>
-                    <br><br><br><br><br><br><br>
+                    <p>Elaboró</p><br><br><br><br><br><br>
                     Nombre de quien sella
                 </th>
                 <th>
@@ -104,13 +107,12 @@
     </div>
     <br>
     <!----->
-
     <div style="clear: both"></div>
     <div class="tam borde " style="height: auto;">
         <div class="imagen ">
             <img src="<?= base_url('startbootstrap/img/utplogo.png') ?>" width="80px"><br>
-            <p class=""> Lorem,veniam, voluptatum </p>
-            <p class=""> Lorem,veniam, voluptatum </p>
+            <p style="text-align: center"> Centro de información <br>
+             "ing. Carlos Vallejo Márquez"</p>
         </div>
         <div class="info ">
             <p style="float: right;margin-right: 10px;">Folio:<?= $folio ?></p>
@@ -118,10 +120,13 @@
                 Centro de información <br>
                 ing. Carlos Vallejo Márquez <br>
             </p>
-            <p style="text-align: justify;"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
-                aliquid provident voluptatum atque, vel recusandae error ducimus suscipit fuga labore libero sequi
-                tempore quae eum in reprehenderit. Voluptatum, odit!</p>
-        </div>
+
+            <p style="text-align: justify; font-size:12px"> 
+                FORMATO PARA GESTIONAR LA ORDEN DE COBRO  POR CONCEPTO DE USO O
+                APROVECHAMIENTO DE CADA UNIDAD DE MATERIAL DEL CENTRO DE INFORMACIÓN,
+                A PARTIR DEL SEXTO DÍA HÁBIL POR CADA DÍA NATURAL
+            </p>
+        </div >
     </div>
     <div class="tam borde" style="height: auto;">
         <table border="1" class="tam mitabla">
@@ -187,10 +192,11 @@
         <table border="1" class="tam mitabla">
             <tr>
                 <th>
-                    <br><br><br><br><br><br><br>
+                    <p>Elaboró</p><br><br><br><br><br><br>
                     Nombre de quien sella
                 </th>
                 <th>
+
                     concilió
                 </th>
                 <th>
@@ -207,6 +213,7 @@
         debidamente requisitado al centro de información
     </div>
     <br>
+    
 
     </body>
 
