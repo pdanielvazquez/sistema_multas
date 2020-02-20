@@ -53,6 +53,5 @@ $route['default_controller'] = 'multas';
 $route['nueva'] = 'multas/nueva';
 $route['pdf'] = 'multas/pdf';
 
-
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

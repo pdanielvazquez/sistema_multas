@@ -122,9 +122,7 @@
             </p>
 
             <p style="text-align: justify; font-size:12px"> 
-                FORMATO PARA GESTIONAR LA ORDEN DE COBRO  POR CONCEPTO DE USO O
-                APROVECHAMIENTO DE CADA UNIDAD DE MATERIAL DEL CENTRO DE INFORMACIÓN,
-                A PARTIR DEL SEXTO DÍA HÁBIL POR CADA DÍA NATURAL
+                FORMATO PARA GESTIONAR LA ORDEN DE COBRO PARA EL PAGO DE LA MULTA
             </p>
         </div >
     </div>
@@ -132,11 +130,11 @@
         <table border="1" class="tam mitabla">
             <tr>
                 <th>
-                    Fecha limite de devolución
+                    Fecha límite de devolución
                     <p><?= $fecha_limite ?></p>
                 </th>
                 <th>
-                    Fecha de devolucion
+                    Fecha de devolución
                     <p><?= $fecha_creada ?></p>
                 </th>
                 <th>
@@ -145,7 +143,7 @@
                 </th>
             </tr>
             <tr>
-                <th colspan="3">Monto economico <?= $monto ?> <?= $montoText ?></th>
+                <th colspan="3">Monto Económico <?= $monto ?> <?= $montoText ?></th>
             </tr>
 
         </table>
@@ -196,7 +194,6 @@
                     Nombre de quien sella
                 </th>
                 <th>
-
                     concilió
                 </th>
                 <th>
@@ -204,13 +201,13 @@
                     Atencion del centro de información
                     <br><br><br><br><br>
                     Nombre,firma,sello
-                </th>
+                </th>                
             </tr>
         </table>
     </div>
     <div class="tam " style="height: auto;font-size: 12px;">
-        <strong>Nota:</strong> Tiene ds días habiles apartir de la fecha de emición para devolver el formato
-        debidamente requisitado al centro de información
+        <strong>Nota:</strong> Tiene dos días habiles para realizar el pago de la multa
+        correspondiente consulte el proceso en: http://www.utpuebla.edu.mx/escolares/pagos/biblioteca_multa.html
     </div>
     <br>
     
