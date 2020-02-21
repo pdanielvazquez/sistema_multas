@@ -18,10 +18,23 @@ class Login_Model extends CI_Model{
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }
 
+    public function get_password($usuario){
+        $sql="SELECT * FROM `usuarios` WHERE username='$usuario'";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
+    }
     /**
      * actualizar informacion
     */
-    public function adtualiza(){
-        # code...
+    public function actualiza($id,$names,$apellidos,$alias,$pasword){
+       $data = [
+            'username' => $alias,
+            'pasw'=>$pasword,
+            'nombres'=>$names,
+            'apellidos'=>$apellidos,
+            'fulldate'=>'1'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('usuarios', $data);        
     }
 }

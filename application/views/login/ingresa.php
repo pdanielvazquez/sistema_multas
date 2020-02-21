@@ -4,33 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('startbootstrap/materialize/css/materialize.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('startbootstrap/materialize/css/login.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('startbootstrap/css/login.css') ?>">
     <title>Login</title>
-    <style>
-        .panel{
-            margin-top: 15% !important;
-            width: 50%;
-            margin: auto;
-            border: 2px solid rgb(8, 8, 5);
-            padding: 10px;
-        }
-        #title{
-            display: block;
-            width: 100%;
-            text-align: center;
-            border-bottom: 2px solid #006A53;
-            padding: 5px;
-        }
-        .boton{
-            background: RGB(0,106,83)
-        }
-        #alerta{
-            width: 100%;
-            color: white;
-            background: RGB(227,94,40);
-            text-align: center
-        }
-    </style>
 </head>
 <body>
     <div class="panel">
@@ -55,7 +30,7 @@
                 <input id="password" type="password" name="password" class="validate">
                 <label for="password">Contraseña</label>
             </div>
-
+            
             <center>
                 <button type="submit" class="btn boton">
                         Ingresar
