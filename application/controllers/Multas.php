@@ -79,6 +79,17 @@ class Multas extends CI_Controller
 		$this->load->view('default/footer_simple');
 
 	}
+
+	public function find_Multa(){
+		$folio=$this->input->post('folio');
+		$datos=$this->Multa_Model->get_multa($folio);
+		$res=array(
+			'folio'=>$folio,
+			'datos'=>$datos
+		);
+		echo json_encode($res);	
+				
+	}
 	
 
 	public function multar(){

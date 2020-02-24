@@ -18,6 +18,10 @@
         </div>
     </div>
 
+    <div class="d-none" id="formato">
+        lorem
+    </div>
+
 </div>
 </div>
 </div>

@@ -105,7 +105,7 @@ class Multa_Model extends CI_Model{
         );
         $this->db->insert('materiales',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
-    }
+    }    
     public function asigna_Material($var1,$var2,$var3,$var4,$var5){        
         $data = array(
             'id'=>'null',
@@ -118,13 +118,20 @@ class Multa_Model extends CI_Model{
         $this->db->insert('materiales',$data);
         return ($this->db->affected_rows() != 1) ? false : true;   
     }
-    /**
-     * SELECT m.folio,m.fecha_creada,m.fecha_limite,e.nombre as etiqueta,p.nombre as personal,m.multado as id_multado,l.nombre as nombre_multado,mat.no_inventario
-     *   from multas m INNER JOIN etiqueta e 
-      *  on m.etiqueta=e.id_etiqueta INNER JOIN personal p 
-       * on m.tipo_personal=p.id_personal INNER JOIN lista l
-        *on m.multado=l.id INNER JOIN materiales as mat
-       * on m.folio=mat.multa
-       * WHERE m.folio=1
-     */
+    public function get_multa($folio){
+        $sql="SELECT m.folio,m.fecha_creada,m.fecha_limite,e.nombre as etiqueta,p.nombre as personal,m.multado as id_multado,l.nombre as nombre_multado,x.no_materiales as cantidad,inventario,material,otro,descripcion
+                from multas m INNER JOIN etiqueta e 
+                on m.etiqueta=e.id_etiqueta INNER JOIN personal p 
+                on m.tipo_personal=p.id_personal INNER JOIN lista l
+                on m.multado=l.id INNER JOIN (SELECT m.multa,COUNT(id)as no_materiales,GROUP_CONCAT(m.no_inventario)as inventario,GROUP_CONCAT(m.material) as material,GROUP_CONCAT(m.otro) as otro,
+                                                GROUP_CONCAT(m.descripcion) as descripcion
+                                                from materiales m
+                                                WHERE m.multa=$folio) as x
+                on x.multa=m.folio                     
+                WHERE m.folio=$folio
+        ";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
+    }
+    
 }
