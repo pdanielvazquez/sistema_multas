@@ -39,10 +39,14 @@ class Multas extends CI_Controller
 	}
 	
 	public function nueva(){
-		$data_header = array(
-			'titulo' => 'Sistema de multas',
-			'usuario' => 'Usuario'
-		);
+		$usuarioName='';
+		if(isset($this->session->userdata('usuario')['id'])){
+			$usuarioName=$this->session->userdata('usuario')['nombre'];
+		}
+		$data_header = array('titulo' => 'Sistema de multas',
+							'usuario' => $usuarioName
+						);
+
 		$fecha = date("d") . "/" . date("m") . "/" . date("Y");
 		$data_body = array(
 			'titulo_seccion' => 'Nueva multa',
@@ -58,6 +62,25 @@ class Multas extends CI_Controller
 		$this->load->view('default/footer_simple');
 	}
 
+	public function existente(){
+		$usuarioName='';
+		if(isset($this->session->userdata('usuario')['id'])){
+			$usuarioName=$this->session->userdata('usuario')['nombre'];
+		}
+		$data_body = array(
+			'titulo_seccion' => 'Multa Registrada',
+		);
+		$data_header = array('titulo' => 'Sistema de multas',
+							'usuario' => $usuarioName
+						);
+		$this->load->view('default/header_simple', $data_header);
+		
+		$this->load->view('body/body_multa_existente',$data_body);
+		$this->load->view('default/footer_simple');
+
+	}
+	
+
 	public function multar(){
 		$fecha_creada=$this->input->post('fecha_devolucion');
 		$fecha_limite=$this->input->post('fecha_limite');
@@ -70,16 +93,12 @@ class Multas extends CI_Controller
 		$material2=$this->input->post('material2');
 		$nombre=$this->input->post('nombre');
 		$diasAtrasados=$this->input->post('diasAtrasados');
-
 		$formato=explode('/',$fecha_creada);
 		$fecha_creada=$formato[2].'-'.$formato[1].'-'.$formato[0];	
-
 		$folio=$this->Multa_Model->multar('null',$fecha_creada,$fecha_limite,$etiqueta,$tipo_personal,$multado,$monto,$material1,$material2);
-
 		//$this->Multa_model->agregaMateriales($folio,'numInventario','Material','otro','descripcion');
 		$separa1=explode(',',$material1);
 		$separa2=explode(',',$material2);
-
 		$this->Multa_Model->asigna_Material($folio,$separa1[0],$separa1[1],$separa1[2],$separa1[3]);
 		if($separa2[0]!=''&&$separa2[1]!=''){
 			$this->Multa_Model->asigna_Material($folio,$separa2[0],$separa2[1],$separa2[2],$separa2[3]);

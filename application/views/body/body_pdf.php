@@ -86,7 +86,13 @@
             <tr>
                 <th>
                     <p>Elaboró</p><br><br><br><br><br>
-                    Nombre de quien sella
+                    <?php
+                    $usuarioName='';
+                    if(isset($this->session->userdata('usuario')['id'])){
+                        $usuarioName=$this->session->userdata('usuario')['nombre'];
+                    }
+                    echo $usuarioName;
+                    ?>
                 </th>
                 <th>
 
@@ -102,8 +108,8 @@
         </table>
     </div>
     <div class="tam " style="height: auto;font-size: 12px;">
-        <strong>Nota:</strong> Tiene ds días habiles apartir de la fecha de emición para devolver el formato
-        debidamente requisitado al centro de información
+        <strong>Nota:</strong> Tiene dos días habiles para realizar el pago de la multa
+        correspondiente consulte el proceso en: http://www.utpuebla.edu.mx/escolares/pagos/biblioteca_multa.html
     </div>
     <br>
     <!----->
@@ -180,7 +186,7 @@
                 </th>
                 <th><br><br>
                     <p style="border-top: 1px solid rgb(19, 18, 18);width: 200px;margin: auto;">
-                        Firma confirmada del usuario
+                        Nombre y firma de compromiso de pago
                     </p>
                 </th>
             </tr>
@@ -191,7 +197,13 @@
             <tr>
                 <th>
                     <p>Elaboró</p><br><br><br><br><br>
-                    Nombre de quien sella
+                    <?php
+                    $usuarioName='';
+                    if(isset($this->session->userdata('usuario')['id'])){
+                        $usuarioName=$this->session->userdata('usuario')['nombre'];
+                    }
+                    echo $usuarioName;
+                    ?>
                 </th>
                 <th>
                     concilió
@@ -207,7 +219,7 @@
     </div>
     <div class="tam " style="height: auto;font-size: 12px;">
         <strong>Nota:</strong> Tiene dos días habiles para realizar el pago de la multa
-        correspondiente consulte el proceso en: http://www.utpuebla.edu.mx/escolares/pagos/biblioteca_multa.html
+        correspondiente. Consulte el proceso en: http://www.utpuebla.edu.mx/escolares/pagos/biblioteca_multa.html
     </div>
     <br>
     

@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -51,7 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'login';
 $route['nueva'] = 'multas/nueva';
+$route['existente'] = 'multas/existente';
 $route['pdf'] = 'multas/pdf';
 $route['update']='login/UpdateUseer';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

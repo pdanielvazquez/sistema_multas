@@ -9,8 +9,12 @@ class Precios extends CI_Controller {
 		$this->load->model("Multa_Model");
 	}
 	public function index(){
+		$usuarioName='';
+		if(isset($this->session->userdata('usuario')['id'])){
+			$usuarioName=$this->session->userdata('usuario')['nombre'];
+		}
 		$data_header = array('titulo' => 'Sistema de multas',
-							'usuario' => 'Usuario'
+							'usuario' => $usuarioName
 						);			
 		$list=$this->Multa_Model->get_litas_precios();			
 		$data_body=array(

@@ -48,16 +48,15 @@ table.mitabla td {
     border-left: 1px solid rgb(19, 18, 18);
 }
 th{
-    padding:5px
+    padding:2px
 }
 
 @media print {
-    @page { margin: 0; }
+   
     .tam {
         margin: auto;
         width: 800px;
     }
-
     table.mitabla {
         border-collapse: collapse;
         border: 1px solid rgb(19, 18, 18);
@@ -65,7 +64,7 @@ th{
     }
 
     table.mitabla td {
-        padding: 5px 10px;
+        padding: 3px;
     }
 
     .imagen {
@@ -92,4 +91,9 @@ th{
     th{
         padding:5px
     }
+}
+
+.btn-borde{
+    /*border-end-end-radius: 50%;*/
+    border-radius: 0px  15% 15% 0px;
 }

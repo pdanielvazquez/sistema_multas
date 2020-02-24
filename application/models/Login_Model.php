@@ -19,7 +19,7 @@ class Login_Model extends CI_Model{
     }
 
     public function get_password($usuario){
-        $sql="SELECT * FROM `usuarios` WHERE username='$usuario'";
+        $sql="SELECT * FROM `usuarios` WHERE username='$usuario' or id='$usuario' ";
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }

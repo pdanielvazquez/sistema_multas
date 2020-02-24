@@ -26,7 +26,7 @@
                             <input type="text" name="password" class="form-control" placeholder="Contraseña nueva"/>
                         </div>
                     </div>
-                    <button type="submit">
+                    <button type="submit" class="btn btn-primary">
                         mandar datos
                     </button>
                 </form>

@@ -118,4 +118,13 @@ class Multa_Model extends CI_Model{
         $this->db->insert('materiales',$data);
         return ($this->db->affected_rows() != 1) ? false : true;   
     }
+    /**
+     * SELECT m.folio,m.fecha_creada,m.fecha_limite,e.nombre as etiqueta,p.nombre as personal,m.multado as id_multado,l.nombre as nombre_multado,mat.no_inventario
+     *   from multas m INNER JOIN etiqueta e 
+      *  on m.etiqueta=e.id_etiqueta INNER JOIN personal p 
+       * on m.tipo_personal=p.id_personal INNER JOIN lista l
+        *on m.multado=l.id INNER JOIN materiales as mat
+       * on m.folio=mat.multa
+       * WHERE m.folio=1
+     */
 }

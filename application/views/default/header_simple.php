@@ -71,8 +71,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="#">Registradas</a>
-            <a class="collapse-item" href="/multas/multas/nueva">Nueva</a>
+            <a class="collapse-item" href="<?= base_url('/existente')?>">Registradas</a>
+            <a class="collapse-item" href="<?=base_url('nueva') ?>">Nueva</a>
           </div>
         </div>
 
@@ -82,7 +82,6 @@
         </a>
         
       </li>
-
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -139,7 +138,7 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="<?=base_url('/update'); ?>">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Perfil
                 </a>

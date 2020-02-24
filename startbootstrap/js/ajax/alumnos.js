@@ -2,7 +2,7 @@
 function get_nombre_alumno() {
     var matricula = document.getElementById("matricula").value;
     $.ajax({
-        url: '../Alumno/get_name',
+        url: 'Alumno/get_name',
         data: { matricula },
         type: 'POST',
         dataType: 'json',
@@ -22,7 +22,7 @@ function get_nombre_alumno() {
 function get_nombre_maestro() {
     var id = document.getElementById("id_maestro").value;
     $.ajax({
-        url: '../Maestro/get_name',
+        url: 'Maestro/get_name',
         data: { id },
         type: 'POST',
         dataType: 'json',
@@ -89,7 +89,7 @@ function calcularPrecio() {
  */
 function get_precio(personal) {
     $.ajax({
-        url: '../multas/get_precio_multa',
+        url: 'multas/get_precio_multa',
         data: { personal },
         type: 'POST',
         dataType: 'json',
@@ -357,7 +357,7 @@ function multar() {
             if (monto != "$0.00") {
                 //console.log(montoText);
                 $.ajax({
-                    url: '../multas/multar',
+                    url: 'multas/multar',
                     data: {
                         nombre,
                         identidicador,

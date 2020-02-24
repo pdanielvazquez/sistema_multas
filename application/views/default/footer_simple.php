@@ -64,6 +64,7 @@
   <!--peticiones ajax-->
   <script src="<?= base_url('startbootstrap/js/ajax/alumnos.js') ?>"></script>
   <script src="<?= base_url('startbootstrap/js/ajax/Precios.js') ?>"></script>
+  <script src="<?= base_url('startbootstrap/js/ajax/existente.js') ?>"></script>
 
   <script src="<?= base_url('startbootstrap/js/toastr.min.js') ?>"></script>
   
