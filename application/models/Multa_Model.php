@@ -119,19 +119,27 @@ class Multa_Model extends CI_Model{
         return ($this->db->affected_rows() != 1) ? false : true;   
     }
     public function get_multa($folio){
-        $sql="SELECT m.folio,m.fecha_creada,m.fecha_limite,e.nombre as etiqueta,p.nombre as personal,m.multado as id_multado,l.nombre as nombre_multado,x.no_materiales as cantidad,inventario,material,otro,descripcion
+        $sql="SELECT m.folio,m.fecha_creada,m.fecha_limite,e.nombre as etiqueta,p.nombre as personal,m.multado as id_multado,l.nombre as nombre_multado
                 from multas m INNER JOIN etiqueta e 
                 on m.etiqueta=e.id_etiqueta INNER JOIN personal p 
                 on m.tipo_personal=p.id_personal INNER JOIN lista l
-                on m.multado=l.id INNER JOIN (SELECT m.multa,COUNT(id)as no_materiales,GROUP_CONCAT(m.no_inventario)as inventario,GROUP_CONCAT(m.material) as material,GROUP_CONCAT(m.otro) as otro,
-                                                GROUP_CONCAT(m.descripcion) as descripcion
-                                                from materiales m
-                                                WHERE m.multa=$folio) as x
-                on x.multa=m.folio                     
+                on m.multado=l.id           
                 WHERE m.folio=$folio
         ";
         $resultados = $this->db->query($sql);
         return $resultados->result();
+    }
+
+    public function get_material_multa($folio){
+        
+        $sql="SELECT m.no_inventario,t.nombre,m.otro,m.descripcion
+                FROM materiales m INNER JOIN tipo_material t 
+                on m.material=t.id
+            WHERE m.multa=$folio
+        ";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
+        
     }
     
 }

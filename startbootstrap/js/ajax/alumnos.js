@@ -66,13 +66,19 @@ function calcularPrecio() {
     let dias = document.getElementById("dias_retraso").value;
     if (dias != 'Error') {
         if (personal == 'alumno') {
-            document.getElementById('alumno').className = "row animated bounceInRight ";
-            document.getElementById('maestro').className = "d-none";
+            if (document.getElementById('alumno')||document.getElementById('maestro')) {
+               document.getElementById('alumno').className = "row animated bounceInRight ";
+               document.getElementById('maestro').className = "d-none"; 
+            }
+            
             get_precio(personal);
         } else {
             if (personal == 'profesor') {
-                document.getElementById('maestro').className = "row animated bounceInRight ";
-                document.getElementById('alumno').className = "d-none";
+                if (document.getElementById('alumno')||document.getElementById('maestro')) {
+                    document.getElementById('maestro').className = "row animated bounceInRight ";
+                    document.getElementById('alumno').className = "d-none";
+                }
+                
                 get_precio(personal);
             }
         }

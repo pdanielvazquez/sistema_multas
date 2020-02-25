@@ -31,16 +31,16 @@
 		            <!-- .row:1 -->
 		            <!-- row:2 -->
 		            <div class="row">
-		              <div class="col-xs-12 col-md-5 form-group">
-		                <label>Fecha límite de devolución</label>
+		              <div class="col-xs-12 col-md-4 form-group">
+		                <label>Fecha de vencimiento</label>
 		                <input type="date" name="fecha_lim_dev" id="fecha_lim_dev" class="form-control" onchange="diff_fechas()">
 		              </div>
 		              <div class="col-xs-12 col-md-4 form-group">
-		                <label>Fecha de devolución</label>
+		                <label>Fecha de devolución </label>
 		                <input type="text" value="<?= $fecha ?>" name="fecha_dev" id="fecha_dev" class="form-control" disabled>
 		              </div>
-		              <div class="col-xs-12 col-md-3 form-group">
-		                <label>Días de atraso</label>
+		              <div class="col-xs-12 col-md-4 form-group">
+		                <label> Días de atraso &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
 		                <input type="text" name="dias_retrso" id="dias_retraso" class="form-control" disabled />
 		              </div>
 		            </div>

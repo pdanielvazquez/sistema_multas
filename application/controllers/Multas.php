@@ -67,9 +67,16 @@ class Multas extends CI_Controller
 		if(isset($this->session->userdata('usuario')['id'])){
 			$usuarioName=$this->session->userdata('usuario')['nombre'];
 		}
+		$fecha = date("d") . "/" . date("m") . "/" . date("Y");
 		$data_body = array(
 			'titulo_seccion' => 'Multa Registrada',
+			'lista' => $this->Estudiante_Model->get_select(),
+			'lista_id'=>$this->Maestro_Model->get_id(),
+			'materiales'=>$this->Material_Model->get_material(),
+			'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
+			'fecha' => $fecha
 		);
+		
 		$data_header = array('titulo' => 'Sistema de multas',
 							'usuario' => $usuarioName
 						);
@@ -89,6 +96,15 @@ class Multas extends CI_Controller
 		);
 		echo json_encode($res);	
 				
+	}
+	public function find_articulo(){
+		$folio=$this->input->post('folio');
+		$datos=$this->Multa_Model->get_material_multa($folio);
+		$res=array(
+			'articulos'=>$datos
+		);
+		echo json_encode($res);
+		
 	}
 	
 
