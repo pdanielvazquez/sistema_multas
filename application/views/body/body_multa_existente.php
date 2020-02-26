@@ -129,7 +129,7 @@
 						<!-- .row4 -->
 					</div>
 					<div class="card-footer">
-						<button class="btn btn-success" onclick="generar();">Aceptar</button>
+						<button class="btn btn-success" onclick="renuevaMulta();">Aceptar</button>
 						<button class="btn btn-warning">Cancelar</button>
 					</div>
 				</div>

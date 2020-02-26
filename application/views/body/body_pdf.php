@@ -15,9 +15,7 @@
             </p>
 
             <p style="text-align: justify; font-size:12px"> 
-                FORMATO PARA GESTIONAR LA ORDEN DE COBRO  POR CONCEPTO DE USO O
-                APROVECHAMIENTO DE CADA UNIDAD DE MATERIAL DEL CENTRO DE INFORMACIÓN,
-                A PARTIR DEL SEXTO DÍA HÁBIL POR CADA DÍA NATURAL
+                FORMATO PARA GESTIONAR LA ORDEN DE COBRO PARA EL PAGO DE LA MULTA
             </p>
         </div >
     </div>

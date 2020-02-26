@@ -75,6 +75,17 @@ class Multa_Model extends CI_Model{
         return $this->db->insert_id();                                          
     }
 
+    public function renueva_Multa($folio,$fecha,$monto){
+        $data=array(
+            'id'=>'null',
+            'id_multa'=>$folio,
+            'total'=>$monto,
+            'fecha_creacion'=>$fecha
+        );
+        $this->db->insert('multas_atrasadas',$data);
+        return ($this->db->affected_rows() != 1) ? false : true;                              
+    }
+
     public function addMateriales($folio,$No_inventario,$material,$otro,$descripcion){        
         $material=array(
             'id'=>'null',
@@ -129,7 +140,6 @@ class Multa_Model extends CI_Model{
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }
-
     public function get_material_multa($folio){
         
         $sql="SELECT m.no_inventario,t.nombre,m.otro,m.descripcion

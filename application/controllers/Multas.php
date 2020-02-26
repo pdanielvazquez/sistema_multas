@@ -200,12 +200,33 @@ class Multas extends CI_Controller
 		}
 		return $string;
 	}
-
 	public function NombreTipo($tipo_material){
 		if ($tipo_material == 1) return "REVISTA";
     	if ($tipo_material == 2) return "LIBRO";
     	if ($tipo_material == 3) return "CD";
    	 	if ($tipo_material == 4) return "OTRO";
+	}
+	
+	public function renueva(){
+		$folio=$this->input->post('folio');
+		$fecha=$this->input->post('fecha');
+		$monto=$this->input->post('monto');
+		$separaFecha=explode('/',$fecha);
+		$fecha=$separaFecha[2].'-'.$separaFecha[1].'-'.$separaFecha[0];
+		$res=$this->Multa_Model->renueva_Multa($folio,$fecha,$monto);
+		if($res){
+			$res=array(
+				'status'=>'success',
+				'msg'=>'Operacion satisfecha'				
+			);
+			echo json_encode($res);
+		}else{
+			$res=array(
+				'status'=>'error',	
+				'msg'=>'Error en operacion'			
+			);
+			echo json_encode($res);
+		}
 	}
 }
 

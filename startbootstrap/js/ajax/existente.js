@@ -22,27 +22,16 @@ function busca_multa(evt) {
                 document.getElementById('nombre').value=datos.nombre_multado
                 document.getElementById('etiqueta').value='Etiqueta '+datos.etiqueta;
                 document.getElementById('folioM').value=datos.folio;
-
                 $.ajax({
                     url: 'multas/find_articulo',
                     data: { folio },
                     type: 'POST',
                     dataType: 'json',
-                    success: function (data) {
-                        console.log(data.articulo[0],'respouesta')
+                    success: function (data) {                        
                         let articulo='';
-                        data.articulo.map((item)=>{
-                            console.log(item)
+                        data.articulos.forEach(item => {                            
+                            articulo+=FormatoArticulo(item.no_inventario,item.nombre,item.otro,item.descripcion);
                         });
-
-                      
-                        if (data.articulos.length==2) {
-                            articulo+=FormatoArticulo(data.no_inventario[0],data.nombre[0],data.otro[0],data.descripcion[0]);
-                            articulo+=FormatoArticulo(data.no_inventario[1],data.nombre[1],data.otro[1],data.descripcion[1]);
-                        }
-                        if (data.articulos.length==1) {
-                            articulo+=FormatoArticulo(data.no_inventario[0],data.nombre[0],data.otro[0],data.descripcion[0]);
-                        }
                         document.getElementById('lista').innerHTML=articulo;
                         console.log(articulo);
                     },
@@ -73,5 +62,37 @@ function FormatoArticulo(inventario,tipo,otro,descripcion){
         dato+=' Descripción: '+otro;
     }
     return dato+='</li>';
+}
+
+
+
+function renuevaMulta(){
+    let folio =document.getElementById('folioM').value;
+    let fecha =document.getElementById('fecha_dev').value;
+    let monto =document.getElementById('monto_numero').value;
+    $.ajax({
+        url:"multas/renueva",
+        data:{folio,fecha,monto},
+        type:'POST',
+        dataType:'json',
+        success:(res)=>{
+            console.log(res);
+
+            if(res.status=='success'){
+                notificacion(res.msg, 'success');
+                
+            }else{
+                if (res.status=='error') {
+                    notificacion(res.msg, 'error');
+                }
+            }
+            //success
+
+            
+        },
+        error:(err)=>{
+            console.log(err);
+        }
+    });
 }
   

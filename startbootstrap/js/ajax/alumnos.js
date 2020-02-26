@@ -381,7 +381,7 @@ function multar() {
                     type: 'POST',
                     dataType: 'json',
                     success: function (data) {
-                        //console.log(data);                          
+                        console.log(data);                     
                         window.open(data.datos.ruta, '_blank');
                     },
                     error: function (err) {
