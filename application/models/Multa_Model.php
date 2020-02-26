@@ -85,7 +85,6 @@ class Multa_Model extends CI_Model{
         $this->db->insert('multas_atrasadas',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }
-
     public function addMateriales($folio,$No_inventario,$material,$otro,$descripcion){        
         $material=array(
             'id'=>'null',

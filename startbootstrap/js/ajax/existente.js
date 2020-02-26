@@ -12,7 +12,6 @@ function busca_multa(evt) {
             if (data.datos.length!=0) {               
                 let datos=data.datos[0];
                 document.getElementById('formato').className='animated pulse';
-                
                 console.log(datos)
                 document.getElementById('fecha_lim_dev').value=datos.fecha_limite;
                 diff_fechas();
@@ -29,8 +28,10 @@ function busca_multa(evt) {
                     dataType: 'json',
                     success: function (data) {                        
                         let articulo='';
+                        let id=1;
                         data.articulos.forEach(item => {                            
-                            articulo+=FormatoArticulo(item.no_inventario,item.nombre,item.otro,item.descripcion);
+                            articulo+=FormatoArticulo(id,item.no_inventario,item.nombre,item.otro,item.descripcion);
+                            id++;
                         });
                         document.getElementById('lista').innerHTML=articulo;
                         console.log(articulo);
@@ -52,9 +53,9 @@ function busca_multa(evt) {
     });
 }
 
-function FormatoArticulo(inventario,tipo,otro,descripcion){
+function FormatoArticulo(id,inventario,tipo,otro,descripcion){
     let dato='';
-    dato+='<li class="list-group-item  text-center"> No inventario: '+inventario+' Tipo: '+tipo;
+    dato+='<li class="list-group-item  text-center" id="articulo'+id+'"> No inventario: '+inventario+' Tipo: '+tipo;
     if (otro.length>0) {
         dato+=' Otro: '+otro;
     }
@@ -64,15 +65,51 @@ function FormatoArticulo(inventario,tipo,otro,descripcion){
     return dato+='</li>';
 }
 
-
-
+const obj={
+    Tipo_personal: "Alumno",
+    dias_arasados: "5",
+    etiqueta: "1",
+    fecha_creada: "26/02/2020",
+    fecha_limite: "21/02/2020",
+    folio: 10,
+    material1: "No. de inventario: 8823 Tipo de material: OTRO Otro material: formulario descripcion: formulario de calculo",
+    material2: "No. de inventario: 7893 Tipo de material: LIBRO",
+    monto: "$35.00",
+    montoText: "TREINTA Y CINCO PESOS MEXICANOS ",
+    multado: "UTP0000021",
+    nombre: "NORMA MARIAN  CRUZ GONZALEZ",
+    
+}
 function renuevaMulta(){
+    let Tipo_personal=document.getElementById('tipo_personal').value;
+    let dias_arasados=document.getElementById('dias_retraso').value;
+    let etiqueta=document.getElementById('etiqueta').value;
+    let fecha_creada=document.getElementById('fecha_dev').value;
+    let fecha_limite=document.getElementById('fecha_lim_dev').value;
     let folio =document.getElementById('folioM').value;
-    let fecha =document.getElementById('fecha_dev').value;
+    let material1=document.getElementById('articulo1').textContent;
+    let material2='';
+    if(document.getElementById('articulo2')){
+        let material2=document.getElementById('articulo2').textContent;
+    }
+
+    console.log(material1);
+    console.log(material2);
+    
     let monto =document.getElementById('monto_numero').value;
+    let montoText=document.getElementById('monto_texto').value;
+    let multado=document.getElementById('identificador').value;
+    let nombre=document.getElementById('nombre').value;
+    let fecha =document.getElementById('fecha_dev').value;
+    
     $.ajax({
         url:"multas/renueva",
-        data:{folio,fecha,monto},
+        data:{
+            Tipo_personal,dias_arasados,etiqueta,
+            fecha_creada,fecha_limite,material1,
+            material2,monto,montoText,
+            multado,nombre,folio,fecha,
+        },
         type:'POST',
         dataType:'json',
         success:(res)=>{
@@ -86,9 +123,6 @@ function renuevaMulta(){
                     notificacion(res.msg, 'error');
                 }
             }
-            //success
-
-            
         },
         error:(err)=>{
             console.log(err);
