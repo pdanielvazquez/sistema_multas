@@ -29,14 +29,19 @@ function busca_multa(evt) {
                     type: 'POST',
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data.articulos.length,'respouesta')
+                        console.log(data.articulo[0],'respouesta')
                         let articulo='';
+                        data.articulo.map((item)=>{
+                            console.log(item)
+                        });
+
+                      
                         if (data.articulos.length==2) {
-                            articulo+=FormatoArticulo(data.no_inventario,data.nombre,data.otro,data.descripcion);
-                            articulo+=FormatoArticulo(data.no_inventario,data.nombre,data.otro,data.descripcion);
+                            articulo+=FormatoArticulo(data.no_inventario[0],data.nombre[0],data.otro[0],data.descripcion[0]);
+                            articulo+=FormatoArticulo(data.no_inventario[1],data.nombre[1],data.otro[1],data.descripcion[1]);
                         }
-                        if (data.articulos.length==2) {
-                            articulo+=FormatoArticulo(data.no_inventario,data.nombre,data.otro,data.descripcion);
+                        if (data.articulos.length==1) {
+                            articulo+=FormatoArticulo(data.no_inventario[0],data.nombre[0],data.otro[0],data.descripcion[0]);
                         }
                         document.getElementById('lista').innerHTML=articulo;
                         console.log(articulo);

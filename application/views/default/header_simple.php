@@ -36,6 +36,9 @@
   <!--Animacion animate.css-->
   
   <link href="<?= base_url('startbootstrap/css/animate.css') ?>" rel="stylesheet">
+  <!--estilos de data table-->
+  <link href="<?= base_url('startbootstrap/css/datatable_style.css') ?>" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -76,9 +79,14 @@
           </div>
         </div>
 
-        <a class="nav-link " href="/multas/Precios">
+        <a class="nav-link " href="<?=base_url('Precios')?>">
           <i class="fas fa-money-check-alt"></i>
           <span>Precio Multa</span>
+        </a>
+
+        <a class="nav-link " href="<?=base_url('Reportes')?>">
+        <i class="fas fa-paste"></i>
+          <span>Reporte</span>
         </a>
         
       </li>
