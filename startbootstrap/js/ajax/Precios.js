@@ -10,6 +10,7 @@ function activa(id){
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            console.log(data)
             if(data[0].activos<2){
                 accion='activa';
                 $.ajax({
@@ -21,7 +22,6 @@ function activa(id){
                         console.log(res);
                         notificacion(res.msg, res.status);
                         setInterval(300,location.reload(true));
-                        
                     },
                     error:(err)=>{
                         console.log(err)

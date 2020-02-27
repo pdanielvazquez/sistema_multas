@@ -68,7 +68,7 @@
                                                             </td>
                                                             <td class='text-center'>
                                                                 <button class='btn' onclick='desactiva(".$value->id.");' >
-                                                                <i class='far fa-window-close'></i>
+                                                                    <i class='far fa-window-close'></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
