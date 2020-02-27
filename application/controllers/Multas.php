@@ -166,7 +166,7 @@ class Multas extends CI_Controller
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
 		);			
-		//echo json_encode($this->session->userdata('datos'));
+		
 		$data_multa=$this->session->userdata('datos');
 		$this->load->view('default/head_pdf', $data_header);
 		$this->load->view('body/body_pdf',$data_multa);
@@ -208,22 +208,54 @@ class Multas extends CI_Controller
 	}
 	
 	public function renueva(){
+		#recogiendo datos
+		$fecha_creada=$this->input->post('fecha_creada');
+		$fecha_limite=$this->input->post('fecha_limite');		
+		$etiqueta=$this->input->post('etiqueta');
+		$tipo_personal=$this->input->post('Tipo_personal');
+		$multado=$this->input->post('multado');
+		$monto=$this->input->post('monto');
+		$montoTexto=$this->input->post('montoText');
+		$material1=$this->input->post('material1');
+		$material2=$this->input->post('material2');
+		$nombre=$this->input->post('nombre');
+		$diasAtrasados=$this->input->post('dias_atrasados');
 		$folio=$this->input->post('folio');
 		$fecha=$this->input->post('fecha');
 		$monto=$this->input->post('monto');
+		#formato de fecha para insertar
 		$separaFecha=explode('/',$fecha);
 		$fecha=$separaFecha[2].'-'.$separaFecha[1].'-'.$separaFecha[0];
+		
 		$res=$this->Multa_Model->renueva_Multa($folio,$fecha,$monto);
-		if($res){
-			$res=array(
+		$separaFecha=explode('-',$fecha_limite);
+		$fecha_limite=$separaFecha[2].'/'.$separaFecha[1].'/'.$separaFecha[0];
+		if($res){			
+			$multa=array(
 				'status'=>'success',
-				'msg'=>'Operacion satisfecha'				
+				'msg'=>'Operacion satisfecha',
+				'datos'=>array(	
+					'folio'=>$folio,	
+					'fecha_creada'=>$fecha_creada,
+					'fecha_limite'=>$fecha_limite,
+					'etiqueta'=>$etiqueta,
+					'Tipo_personal'=>$tipo_personal,
+					'multado'=>$multado,
+					'monto'=>$monto,
+					'montoText'=>$montoTexto,
+					'dias_arasados'=>$diasAtrasados,
+					'nombre'=>$nombre,
+					'material1'=>$material1,
+					'material2'=>$material2,
+					'ruta'=>base_url('/multas/pdf')
+				)
 			);
-			echo json_encode($res);
+			$this->session->set_userdata($multa);
+			echo json_encode($multa);			
 		}else{
 			$res=array(
 				'status'=>'error',	
-				'msg'=>'Error en operacion'			
+				'msg'=>'Error en operacion',				
 			);
 			echo json_encode($res);
 		}

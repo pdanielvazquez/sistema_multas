@@ -82,7 +82,7 @@ const obj={
 }
 function renuevaMulta(){
     let Tipo_personal=document.getElementById('tipo_personal').value;
-    let dias_arasados=document.getElementById('dias_retraso').value;
+    let dias_atrasados=document.getElementById('dias_retraso').value;
     let etiqueta=document.getElementById('etiqueta').value;
     let fecha_creada=document.getElementById('fecha_dev').value;
     let fecha_limite=document.getElementById('fecha_lim_dev').value;
@@ -92,20 +92,15 @@ function renuevaMulta(){
     if(document.getElementById('articulo2')){
         let material2=document.getElementById('articulo2').textContent;
     }
-
-    console.log(material1);
-    console.log(material2);
-    
     let monto =document.getElementById('monto_numero').value;
     let montoText=document.getElementById('monto_texto').value;
     let multado=document.getElementById('identificador').value;
     let nombre=document.getElementById('nombre').value;
     let fecha =document.getElementById('fecha_dev').value;
-    
     $.ajax({
         url:"multas/renueva",
         data:{
-            Tipo_personal,dias_arasados,etiqueta,
+            Tipo_personal,dias_atrasados,etiqueta,
             fecha_creada,fecha_limite,material1,
             material2,monto,montoText,
             multado,nombre,folio,fecha,
@@ -114,10 +109,9 @@ function renuevaMulta(){
         dataType:'json',
         success:(res)=>{
             console.log(res);
-
             if(res.status=='success'){
                 notificacion(res.msg, 'success');
-                
+                window.open(res.datos.ruta, '_blank');                           
             }else{
                 if (res.status=='error') {
                     notificacion(res.msg, 'error');
