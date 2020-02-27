@@ -13,15 +13,20 @@ class Multas extends CI_Controller
 	}
 
 	public function index(){
-		$data_header = array('titulo' => 'Sistema de multas',
-							'usuario' => 'Usuario'
-						);
-		$data_body = array('titulo_seccion' => 'El título'
-						);
-		//$this->load->view('blank', $data);
-		$this->load->view('default/header_simple', $data_header);
-		$this->load->view('body_simple', $data_body);
-		$this->load->view('default/footer_simple');	
+		if($this->session->userdata('usuario')['activo']){
+			$data_header = array('titulo' => 'Sistema de multas',
+								'usuario' => 'Usuario'
+							);
+			$data_body = array('titulo_seccion' => 'El título'
+							);
+			//$this->load->view('blank', $data);
+			$this->load->view('default/header_simple', $data_header);
+			$this->load->view('body_simple', $data_body);
+			$this->load->view('default/footer_simple');	
+		}else{
+			$ruta=base_url();
+			header("Location: $ruta");
+		}
 	}
 
 	public function get_precio_multa(){
@@ -39,52 +44,61 @@ class Multas extends CI_Controller
 	}
 	
 	public function nueva(){
-		$usuarioName='';
-		if(isset($this->session->userdata('usuario')['id'])){
-			$usuarioName=$this->session->userdata('usuario')['nombre'];
-		}
-		$data_header = array('titulo' => 'Sistema de multas',
-							'usuario' => $usuarioName
-						);
+		if($this->session->userdata('usuario')['activo']){
+			$usuarioName='';
+			if(isset($this->session->userdata('usuario')['id'])){
+				$usuarioName=$this->session->userdata('usuario')['nombre'];
+			}
+			$data_header = array('titulo' => 'Sistema de multas',
+								'usuario' => $usuarioName
+							);
 
-		$fecha = date("d") . "/" . date("m") . "/" . date("Y");
-		$data_body = array(
-			'titulo_seccion' => 'Nueva multa',
-			'lista' => $this->Estudiante_Model->get_select(),
-			'lista_id'=>$this->Maestro_Model->get_id(),
-			'materiales'=>$this->Material_Model->get_material(),
-			'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
-			'fecha' => $fecha
-		);
-		
-		$this->load->view('default/header_simple', $data_header);
-		$this->load->view('body/body_nuevo', $data_body);
-		$this->load->view('default/footer_simple');
+			$fecha = date("d") . "/" . date("m") . "/" . date("Y");
+			$data_body = array(
+				'titulo_seccion' => 'Nueva multa',
+				'lista' => $this->Estudiante_Model->get_select(),
+				'lista_id'=>$this->Maestro_Model->get_id(),
+				'materiales'=>$this->Material_Model->get_material(),
+				'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
+				'fecha' => $fecha
+			);
+			
+			$this->load->view('default/header_simple', $data_header);
+			$this->load->view('body/body_nuevo', $data_body);
+			$this->load->view('default/footer_simple');
+		}else{
+			$ruta=base_url();
+    		header("Location: $ruta");
+		}
 	}
 
 	public function existente(){
-		$usuarioName='';
-		if(isset($this->session->userdata('usuario')['id'])){
-			$usuarioName=$this->session->userdata('usuario')['nombre'];
+		if($this->session->userdata('usuario')['activo']){
+			$usuarioName='';
+			if(isset($this->session->userdata('usuario')['id'])){
+				$usuarioName=$this->session->userdata('usuario')['nombre'];
+			}
+			$fecha = date("d") . "/" . date("m") . "/" . date("Y");
+			$data_body = array(
+				'titulo_seccion' => 'Multa Registrada',
+				'lista' => $this->Estudiante_Model->get_select(),
+				'lista_id'=>$this->Maestro_Model->get_id(),
+				'materiales'=>$this->Material_Model->get_material(),
+				'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
+				'fecha' => $fecha
+			);
+			
+			$data_header = array('titulo' => 'Sistema de multas',
+								'usuario' => $usuarioName
+							);
+			$this->load->view('default/header_simple', $data_header);
+			
+			$this->load->view('body/body_multa_existente',$data_body);
+			$this->load->view('default/footer_simple');
+		}else{
+			$ruta=base_url();
+			header("Location: $ruta");
 		}
-		$fecha = date("d") . "/" . date("m") . "/" . date("Y");
-		$data_body = array(
-			'titulo_seccion' => 'Multa Registrada',
-			'lista' => $this->Estudiante_Model->get_select(),
-			'lista_id'=>$this->Maestro_Model->get_id(),
-			'materiales'=>$this->Material_Model->get_material(),
-			'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
-			'fecha' => $fecha
-		);
-		
-		$data_header = array('titulo' => 'Sistema de multas',
-							'usuario' => $usuarioName
-						);
-		$this->load->view('default/header_simple', $data_header);
-		
-		$this->load->view('body/body_multa_existente',$data_body);
-		$this->load->view('default/footer_simple');
-
 	}
 
 	public function find_Multa(){
@@ -163,12 +177,17 @@ class Multas extends CI_Controller
 	}
 
 	public function pdf(){
-		$data_header = array('titulo' => 'Sistema de multas',
-		'usuario' => 'Usuario'
-		);					
-		$data_multa=$this->session->userdata('datos');
-		$this->load->view('default/head_pdf', $data_header);
-		$this->load->view('body/body_pdf',$data_multa);
+		if($this->session->userdata('usuario')['activo']){
+
+			$data_header = array('titulo' => 'Sistema de multas',
+			'usuario' => 'Usuario'
+			);					
+			$data_multa=$this->session->userdata('datos');
+			$this->load->view('default/head_pdf', $data_header);
+			$this->load->view('body/body_pdf',$data_multa);
+		}else{
+			/////////////
+		}
 	}
 	public function FormatoFecha($fecha){
 		$NewFecha=explode('-',$fecha);

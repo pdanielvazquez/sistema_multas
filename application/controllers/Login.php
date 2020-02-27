@@ -9,10 +9,11 @@ class Login extends CI_Controller {
   }
 
   public function index(){
+    //var_dump($this->session->userdata('usuario'));
+    
     $this->load->view('login/ingresa');
   }
   public function verifica(){
-    
     $usuario=$this->input->post('username');
     $pass =$this->input->post('password');
     if(strlen($usuario)>0&&strlen($pass)>0){
@@ -68,32 +69,37 @@ class Login extends CI_Controller {
     $this->load->view('default/footer_simple'); 
     
   }
-  public function Update(){    
-    $nombre= $this->input->post('nombres');
-    $apellidos= $this->input->post('apellidos');
-    $alias =$this->input->post('username');
-    $pasw= $this->input->post('password');
-    $id=$this->session->userdata('usuario')['id'];
-    if(strlen($nombre)>4&&strlen($apellidos)>4&&strlen($alias)>4&&strlen($pasw)>4){
-      //echo $nombre;
-      $key="{UTPu3bla}";
-      $pasw=$this->encrypt($pasw,$key);
-      $this->Login_Model->actualiza($id,$nombre,$apellidos,$alias,$pasw);
-      //actualizamos la session 
-      $datos=$this->Login_Model->get_password($id);      
-      $usser=array(
-        'usuario'=>array(
-          'activo'=>true,
-          'nombre'=>$datos[0]->nombres.' '.$datos[0]->apellidos,
-          'id'=>$datos[0]->id
-        )
-      );
-      $this->session->set_userdata($usser);
-    }else{
-      echo "NA";
-    }
-    /*var_dump($nombre);
-    echo $id;*/
+  public function Update(){  
+    
+    if($this->session->userdata('usuario')['activo']){ 
+      $nombre= $this->input->post('nombres');
+      $apellidos= $this->input->post('apellidos');
+      $alias =$this->input->post('username');
+      $pasw= $this->input->post('password');
+      $id=$this->session->userdata('usuario')['id'];
+      if(strlen($nombre)>4&&strlen($apellidos)>4&&strlen($alias)>4&&strlen($pasw)>4){
+        //echo $nombre;
+        $key="{UTPu3bla}";
+        $pasw=$this->encrypt($pasw,$key);
+        $this->Login_Model->actualiza($id,$nombre,$apellidos,$alias,$pasw);
+        //actualizamos la session 
+        $datos=$this->Login_Model->get_password($id);      
+        $usser=array(
+          'usuario'=>array(
+            'activo'=>true,
+            'nombre'=>$datos[0]->nombres.' '.$datos[0]->apellidos,
+            'id'=>$datos[0]->id
+          )
+        );
+        $this->session->set_userdata($usser);
+      }else{
+        echo "NA";
+      }
+  }else{
+    $ruta=base_url();
+    header("Location: $ruta");
+  }
+    
 
   }  
   public function encrypt($data,$key){

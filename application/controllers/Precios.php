@@ -9,61 +9,72 @@ class Precios extends CI_Controller {
 		$this->load->model("Multa_Model");
 	}
 	public function index(){
-		$usuarioName='';
-		if(isset($this->session->userdata('usuario')['id'])){
-			$usuarioName=$this->session->userdata('usuario')['nombre'];
+		if($this->session->userdata('usuario')['activo']){
+
+			$usuarioName='';
+			if(isset($this->session->userdata('usuario')['id'])){
+				$usuarioName=$this->session->userdata('usuario')['nombre'];
+			}
+			$data_header = array('titulo' => 'Sistema de multas',
+								'usuario' => $usuarioName
+							);			
+			$list=$this->Multa_Model->get_litas_precios();			
+			$data_body=array(
+				'titulo_seccion'=>'Precios',
+				'list'=>$list
+			);
+			$this->load->view('default/header_simple', $data_header);
+			$this->load->view('body/body_precios',$data_body);
+			$this->load->view('default/footer_simple');        
+		}else{
+			$ruta=base_url();
+			header("Location: $ruta");
 		}
-		$data_header = array('titulo' => 'Sistema de multas',
-							'usuario' => $usuarioName
-						);			
-		$list=$this->Multa_Model->get_litas_precios();			
-		$data_body=array(
-			'titulo_seccion'=>'Precios',
-			'list'=>$list
-		);
-		$this->load->view('default/header_simple', $data_header);
-		$this->load->view('body/body_precios',$data_body);
-        $this->load->view('default/footer_simple');        
 	}
 	function Insertprecio(){
-		$year=$this->input->post('year');
-		$precio=$this->input->post('precio');
-		$persona=$this->input->post('persona');
-		$res =$this->Multa_Model->Insert_multa($year,$precio,$persona);
-		if($res){
-			$usuarioName='';
-			if(isset($this->session->userdata('usuario')['id'])){
-				$usuarioName=$this->session->userdata('usuario')['nombre'];
+		if($this->session->userdata('usuario')['activo']){
+			$year=$this->input->post('year');
+			$precio=$this->input->post('precio');
+			$persona=$this->input->post('persona');
+			$res =$this->Multa_Model->Insert_multa($year,$precio,$persona);
+			if($res){
+				$usuarioName='';
+				if(isset($this->session->userdata('usuario')['id'])){
+					$usuarioName=$this->session->userdata('usuario')['nombre'];
+				}
+				$data_header = array('titulo' => 'Sistema de multas',
+									'usuario' => $usuarioName
+								);			
+				$list=$this->Multa_Model->get_litas_precios();			
+				$data_body=array(
+					'titulo_seccion'=>'Precios',
+					'list'=>$list,
+					'msg'=>"Operacion satisfecha"
+				);
+				$this->load->view('default/header_simple', $data_header);
+				$this->load->view('body/body_precios',$data_body);
+				$this->load->view('default/footer_simple');
+			}else{
+				$usuarioName='';
+				if(isset($this->session->userdata('usuario')['id'])){
+					$usuarioName=$this->session->userdata('usuario')['nombre'];
+				}
+				$data_header = array('titulo' => 'Sistema de multas',
+									'usuario' => $usuarioName
+								);			
+				$list=$this->Multa_Model->get_litas_precios();			
+				$data_body=array(
+					'titulo_seccion'=>'Precios',
+					'list'=>$list,
+					'msg'=>"Error al guardar precio"
+				);
+				$this->load->view('default/header_simple', $data_header);
+				$this->load->view('body/body_precios',$data_body);
+				$this->load->view('default/footer_simple');
 			}
-			$data_header = array('titulo' => 'Sistema de multas',
-								'usuario' => $usuarioName
-							);			
-			$list=$this->Multa_Model->get_litas_precios();			
-			$data_body=array(
-				'titulo_seccion'=>'Precios',
-				'list'=>$list,
-				'msg'=>"Operacion satisfecha"
-			);
-			$this->load->view('default/header_simple', $data_header);
-			$this->load->view('body/body_precios',$data_body);
-			$this->load->view('default/footer_simple');
 		}else{
-			$usuarioName='';
-			if(isset($this->session->userdata('usuario')['id'])){
-				$usuarioName=$this->session->userdata('usuario')['nombre'];
-			}
-			$data_header = array('titulo' => 'Sistema de multas',
-								'usuario' => $usuarioName
-							);			
-			$list=$this->Multa_Model->get_litas_precios();			
-			$data_body=array(
-				'titulo_seccion'=>'Precios',
-				'list'=>$list,
-				'msg'=>"Error al guardar precio"
-			);
-			$this->load->view('default/header_simple', $data_header);
-			$this->load->view('body/body_precios',$data_body);
-			$this->load->view('default/footer_simple');
+			$ruta=base_url();
+			header("Location: $ruta");
 		}
 	}
 	public function get_activos(){
