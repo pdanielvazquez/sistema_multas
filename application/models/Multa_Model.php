@@ -1,4 +1,7 @@
 <?php
+
+use phpDocumentor\Reflection\Types\Null_;
+
 class Multa_Model extends CI_Model{
     public function __construct(){
         $this->load->database();
@@ -26,12 +29,24 @@ class Multa_Model extends CI_Model{
         return $resultados->result();
     }
 
+    public function get_activos(){
+        $sql="SELECT COUNT(p.id) as activos
+            from preciosmulta p
+            WHERE p.activo=true";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
+    }
+
     /**
      * funcion que actualiza el estado del precio 
      */
-    public function update_stado_precio($id,$tipoPersona){
-        //falta buscar el id activo dependiendo del tipo de persona y cambiarlo a false
-        $sql ="UPDATE  preciosmulta set activo=true where id =$id";
+    public function update_stado_precio($id,$status){
+        $data = array(
+            'activo' => $status
+        );
+        $this->db->where('id', $id);
+        $this->db->update('preciosmulta', $data);
+        return ($this->db->affected_rows() != 1) ? false : true;  
     }
 
     /**
@@ -47,9 +62,10 @@ class Multa_Model extends CI_Model{
             'precio'=>$precio,
             'tipo_personal'=>$persona,
             'years'=>$year,
-            'id'=>'null',
+            'id'=>Null,
             'activo'=>'0'
         );
+        
         $this->db->insert('preciosmulta',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }

@@ -1,13 +1,25 @@
 <!-- Begin Page Content -->
 <div class="container-fluid ">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $titulo_seccion ?></h1>
+    <h1 class="h3 mb-4 text-gray-800"><?= $titulo_seccion?></h1>
     <div class="content">
         <div class="row">
             <div class="col-12">
                 <!-- row4 -->
-                <div class="row">
-                    <div class="col-xs-12 col-md-12">
+                <div class="row">                    
+                    <?php
+                        if(isset($msg)){
+                            echo'<div class="col-xs-12 col-md-12">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <strong>'.$msg.'</strong>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>';
+                        }
+                    ?>
+                       
                         <!-- DataTale -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 ">
@@ -26,6 +38,7 @@
                                                 <th>precio</th>
                                                 <th>Personal</th>
                                                 <th>Activar</th>
+                                                <th>Desactivar</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -35,6 +48,7 @@
                                                 <th>precio</th>
                                                 <th>Personal</th>
                                                 <th>Activar</th>
+                                                <th>Desactivar</th>
                                             </tr>
                                         </tfoot >
                                         <tbody>
@@ -43,28 +57,38 @@
                                                 if ($value->activo) {
                                                     $html = "
                                                         <tr style='background: rgba(2, 121, 219, 0.1);'>
-                                                            <td class='text-center'>" . $value->years . "</td>
-                                                            <td class='text-center'  >Si</td>
-                                                            <td class='text-center'>$ " . $value->precio . ".00</td>
-                                                            <td class='text-center'>" . $value->nombre . "</td>
+                                                            <td class='text-center'>".$value->years."</td>
+                                                            <td class='text-center'>Si</td>
+                                                            <td class='text-center'>$".$value->precio.".00</td>
+                                                            <td class='text-center'>".$value->nombre."</td>
                                                             <td class='text-center'>
-                                                                <button class='btn' onclick='activa();' disabled>
+                                                                <button class='btn' onclick='activa(".$value->id.");' disabled>
                                                                     <i class='far fa-check-circle'></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class='text-center'>
+                                                                <button class='btn' onclick='desactiva(".$value->id.");' >
+                                                                <i class='far fa-window-close'></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
                                                         ";
                                                 } else {
-                                                    $var1="luis E";
+                                                    
                                                     $html = "
                                                         <tr>
                                                             <td class='text-center'>" . $value->years . "</td>
                                                             <td class='text-center'>No</td>
-                                                            <td class='text-center'>$ " . $value->precio . ".00</td>
-                                                            <td class='text-center'>" . $value->nombre . "</td>
+                                                            <td class='text-center'>$ ".$value->precio .".00</td>
+                                                            <td class='text-center'>".$value->nombre ."</td>
                                                             <td class='text-center'>
-                                                                <button class='btn' onclick='activa('1','2');'>
+                                                                <button class='btn' onclick='activa(".$value->id.");'>
                                                                     <i class='far fa-check-circle'></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class='text-center'>
+                                                                <button class='btn' onclick='desactiva(".$value->id.");' >
+                                                                <i class='far fa-window-close'></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
@@ -99,7 +123,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    
+                    <form action="<?= base_url('Precios/Insertprecio') ?>" method="POST">                                            
                         <div class="form-group">
                             <label for="year">Año</label>
                             <input type="number" name="year"  id="year" class=" form-control" placeholder="Año"/>
@@ -123,7 +148,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar Precio</button>
+                    
                 </div>
             </div>
         </div>

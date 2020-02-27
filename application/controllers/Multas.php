@@ -165,8 +165,7 @@ class Multas extends CI_Controller
 	public function pdf(){
 		$data_header = array('titulo' => 'Sistema de multas',
 		'usuario' => 'Usuario'
-		);			
-		
+		);					
 		$data_multa=$this->session->userdata('datos');
 		$this->load->view('default/head_pdf', $data_header);
 		$this->load->view('body/body_pdf',$data_multa);

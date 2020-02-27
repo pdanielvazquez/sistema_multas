@@ -1,40 +1,57 @@
-function Guardaprecios(){
-    let year=get_Valor('year');
-    let precio=get_Valor('precio');
-    let persona=get_Valor('persona');
-
-    $.ajax({
-        url: './../multas/Precios/Insertprecio',
-        data: { year,precio,persona },
-        type: 'POST',
-        dataType: 'json',
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (err) {
-            console.log(err);
-            console.error('error en la petición');
-        }
-    });
-}
 
 /**
  * 
  * @param {string} idNuevo 
  * @param {string} persnaNueva 
  */
-function activa(idNuevo,personaNueva){
-    alert(idNuevo);
-    alert(personaNueva);
-   /* const obj=({
-        idNuevo,
-        personaNueva
-    });
-    console.log(obj);*/
+function activa(id){   
+    $.ajax({
+        url: 'Precios/get_activos',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if(data[0].activos<2){
+                accion='activa';
+                $.ajax({
+                    url:'Precios/update_activo',
+                    type:'POST',
+                    data:{id,accion},
+                    dataType:'json',
+                    success:(res)=>{
+                        console.log(res);
+                        notificacion(res.msg, res.status);
+                        setInterval(300,location.reload(true));
+                        
+                    },
+                    error:(err)=>{
+                        console.log(err)
+                    }
+                }) 
+            }else{
+                notificacion('Error no puedes tener mas de dos precios activos', 'error');
+            }
+
+        },
+        error: function (err) {
+            console.log(err.fail().responseText);
+            console.error('error en la petición');
+        }        
+    });    
 }
 
-
-function get_Valor(id){
-    var dato = document.getElementById(id).value;
-    return dato;
+function desactiva(id){
+    accion='desactiva';
+    $.ajax({
+        url:'Precios/update_activo',
+        type:'POST',
+        data:{id,accion},
+        dataType:'json',
+        success:(res)=>{
+            notificacion(res.msg,res.status);
+            location.reload(true);
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+    })
 }

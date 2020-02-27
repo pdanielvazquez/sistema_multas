@@ -472,3 +472,8 @@ function item_forman(numero,no_inventario,tipo_material, otro_tipo_Material, des
 
     }    
 }
+
+function get_Valor(id){
+    valor=document.getElementById(id).value;
+    return valor;
+}

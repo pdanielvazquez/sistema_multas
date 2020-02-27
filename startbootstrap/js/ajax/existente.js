@@ -52,7 +52,6 @@ function busca_multa(evt) {
         }
     });
 }
-
 function FormatoArticulo(id,inventario,tipo,otro,descripcion){
     let dato='';
     dato+='<li class="list-group-item  text-center" id="articulo'+id+'"> No inventario: '+inventario+' Tipo: '+tipo;
@@ -63,22 +62,6 @@ function FormatoArticulo(id,inventario,tipo,otro,descripcion){
         dato+=' Descripción: '+otro;
     }
     return dato+='</li>';
-}
-
-const obj={
-    Tipo_personal: "Alumno",
-    dias_arasados: "5",
-    etiqueta: "1",
-    fecha_creada: "26/02/2020",
-    fecha_limite: "21/02/2020",
-    folio: 10,
-    material1: "No. de inventario: 8823 Tipo de material: OTRO Otro material: formulario descripcion: formulario de calculo",
-    material2: "No. de inventario: 7893 Tipo de material: LIBRO",
-    monto: "$35.00",
-    montoText: "TREINTA Y CINCO PESOS MEXICANOS ",
-    multado: "UTP0000021",
-    nombre: "NORMA MARIAN  CRUZ GONZALEZ",
-    
 }
 function renuevaMulta(){
     let Tipo_personal=document.getElementById('tipo_personal').value;
@@ -123,4 +106,3 @@ function renuevaMulta(){
         }
     });
 }
-  
