@@ -315,7 +315,8 @@ function notificacion(msg, err) {
 /**
  * manda los datos al controlador de multas para generar la multa 
  */
-function multar() {
+function multar(event) {
+    event.preventDefault();
     let dias = document.getElementById("dias_retraso").value;
     //validacion de dias de retraso que sea 1 o mayor
     if (dias != 'Error') {
@@ -381,8 +382,10 @@ function multar() {
                     type: 'POST',
                     dataType: 'json',
                     success: function (data) {
-                        console.log(data);                     
+                        console.log(data);  
+                                           
                         window.open(data.datos.ruta, '_blank');
+                        document.getElementById("multasform").reset();
                     },
                     error: function (err) {
                         console.log(err);
@@ -476,4 +479,11 @@ function item_forman(numero,no_inventario,tipo_material, otro_tipo_Material, des
 function get_Valor(id){
     valor=document.getElementById(id).value;
     return valor;
+}
+
+function cancelar(event){
+    event.preventDefault();
+    document.getElementById("multasform").reset();
+    setTimeout('document.location.reload()', 1000);
+    
 }

@@ -35,8 +35,8 @@
                                                     $html = "
                                                         <tr>
                                                             <td class='text-center'>" . $value->folio . "</td>                                                            
-                                                            <td class='text-center'>" . $value->fecha_creada . "</td>
-                                                            <td class='text-center'>" . $value->fecha_vencido . "</td>
+                                                            <td class='text-center'>" . date("d/m/Y", strtotime($value->fecha_creada)) . "</td>
+                                                            <td class='text-center'>" . date("d/m/Y", strtotime($value->fecha_vencido)). "</td>
                                                             <td class='text-center'>" . $value->etiqueta . "</td>
                                                             <td class='text-center'>" . $value->personal . "</td>
                                                             <td class='text-center'>" . $value->id_multado . "</td>

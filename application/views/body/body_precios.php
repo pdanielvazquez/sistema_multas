@@ -124,7 +124,7 @@
                 </div>
                 <div class="modal-body">
                     
-                    <form action="<?= base_url('Precios/Insertprecio') ?>" method="POST">                                            
+                    <form  method="POST">                                            
                         <div class="form-group">
                             <label for="year">Año</label>
                             <input type="number" name="year"  id="year" class=" form-control" placeholder="Año"/>
@@ -141,7 +141,7 @@
                                 <option value="profesor">Maestro</option>
                             </select>
                         </div>
-                        <button type="submit" class=" btn btn-primary col-12" onclick="Guardaprecios()">
+                        <button type="submit" class=" btn btn-primary col-12" onclick="SavePrecio(event)">
                             Guardar &nbsp;<i class="far fa-save"></i>
                         </button>
                         </form>
