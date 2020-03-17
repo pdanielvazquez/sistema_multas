@@ -101,6 +101,53 @@ class Multas extends CI_Controller
 		}
 	}
 
+	public function Pagar(){
+		
+		if($this->session->userdata('usuario')['activo']){
+			$usuarioName='';
+			if(isset($this->session->userdata('usuario')['id'])){
+				$usuarioName=$this->session->userdata('usuario')['nombre'];
+			}
+			$fecha = date("d") . "/" . date("m") . "/" . date("Y");
+			$data_body = array(
+				'titulo_seccion' => 'Multa Registrada',
+				'lista' => $this->Estudiante_Model->get_select(),
+				'lista_id'=>$this->Maestro_Model->get_id(),
+				'materiales'=>$this->Material_Model->get_material(),
+				'etiquetas'=>$this->Etiquetas_Model->get_etiquetas(),
+				'fecha' => $fecha
+			);
+			
+			$data_header = array('titulo' => 'Sistema de multas',
+								'usuario' => $usuarioName
+							);
+			$this->load->view('default/header_simple', $data_header);
+			
+			$this->load->view('body/body_pagar',$data_body);
+			$this->load->view('default/footer_simple');
+		}else{
+			$ruta=base_url();
+			header("Location: $ruta");
+		}
+	}
+	public function pagar_multa(){
+		$folio=$this->input->post('folio');
+		$satisfecho=$this->Multa_Model->paga_Multa($folio);
+		if($satisfecho){
+			$res=array(
+				'status'=>'success',
+				'msg'=>'Multa pagada'
+			);
+			echo json_encode($res);
+		}else{
+			$res=array(
+				'status'=>'error',
+				'msg'=>'Error al pagar multa'
+			);
+			echo json_encode($res);
+		}
+	}
+
 	public function find_Multa(){
 		$folio=$this->input->post('folio');
 		$datos=$this->Multa_Model->get_multa($folio);
@@ -121,7 +168,6 @@ class Multas extends CI_Controller
 		
 	}
 	
-
 	public function multar(){
 		$fecha_creada=$this->input->post('fecha_devolucion');
 		$fecha_limite=$this->input->post('fecha_limite');

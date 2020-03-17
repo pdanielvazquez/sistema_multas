@@ -101,6 +101,15 @@ class Multa_Model extends CI_Model{
         $this->db->insert('multas_atrasadas',$data);
         return ($this->db->affected_rows() != 1) ? false : true;                              
     }
+    public function paga_Multa($folio){
+        $data=array(
+            'pagada'=>'1'
+        );
+        $this->db->where('folio', $folio);
+        $this->db->update('multas',$data);
+        return ($this->db->affected_rows() != 1) ? false : true;  
+    }
+
     public function addMateriales($folio,$No_inventario,$material,$otro,$descripcion){        
         $material=array(
             'id'=>'null',

@@ -52,6 +52,77 @@ function busca_multa(evt) {
         }
     });
 }
+
+function busca_multa_apagar(evt) {    
+    evt.preventDefault();
+    document.getElementById('formato').className='d-none';
+    folio=document.getElementById('folio').value;
+    $.ajax({
+        url: 'multas/find_Multa',
+        data: { folio },
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            if (data.datos.length!=0) {               
+                let datos=data.datos[0];
+                document.getElementById('formato').className='animated pulse';
+                //console.log(datos)                
+                document.getElementById('tipo_personal').value=datos.personal;                
+                document.getElementById('identificador').value=datos.id_multado;
+                document.getElementById('nombre').value=datos.nombre_multado
+                document.getElementById('etiqueta').value='Etiqueta '+datos.etiqueta;
+                document.getElementById('folioM').value=datos.folio;
+                $.ajax({
+                    url: 'multas/find_articulo',
+                    data: { folio },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {                        
+                        let articulo='';
+                        let id=1;
+                        data.articulos.forEach(item => {                            
+                            articulo+=FormatoArticulo(id,item.no_inventario,item.nombre,item.otro,item.descripcion);
+                            id++;
+                        });
+                        document.getElementById('lista').innerHTML=articulo;
+                        console.log(articulo);
+                    },
+                    error: function (err) {
+                        console.log(err.fail().responseText);
+                        console.error('error en la petición');
+                    }
+                });                                
+            }else{
+                document.getElementById('formato').className='d-none';
+                notificacion('Folio no existe', 'error');
+            }           
+        },
+        error: function (err) {
+            console.log(err.fail().responseText);
+            console.error('error en la petición');
+        }
+    });
+}
+function pagar() {
+    alert(5)
+    folio=document.getElementById('folio').value;
+    $.ajax({
+        url: 'multas/pagar_multa',
+        data: { folio },
+        type: 'POST',
+        dataType: 'json',
+        success: function (res) {                        
+           console.log(res)
+           notificacion(res.msg, res.status);
+        },
+        error: function (err) {
+            console.log(err.fail().responseText);
+            console.error('error en la petición');
+        }
+    });    
+
+}
+
 function FormatoArticulo(id,inventario,tipo,otro,descripcion){
     let dato='';
     dato+='<li class="list-group-item  text-center" id="articulo'+id+'"> No inventario: '+inventario+' Tipo: '+tipo;

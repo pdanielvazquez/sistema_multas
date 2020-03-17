@@ -74,6 +74,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= base_url('/pagar')?>">Pagar multa</a>
             <a class="collapse-item" href="<?= base_url('/existente')?>">Registradas</a>
             <a class="collapse-item" href="<?=base_url('nueva') ?>">Nueva</a>
           </div>
