@@ -175,5 +175,7 @@ class Multa_Model extends CI_Model{
         return $resultados->result();
         
     }
+
+    
     
 }

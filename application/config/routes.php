@@ -54,6 +54,7 @@ $route['existente'] = 'multas/existente';
 $route['pdf'] = 'multas/pdf';
 $route['update']='login/UpdateUseer';
 $route['pagar']='multas/Pagar';
+$route['informe']='REportes/informe';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

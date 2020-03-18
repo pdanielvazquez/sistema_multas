@@ -16,5 +16,11 @@ class Reportes_model extends CI_Model{
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }
+
+    public function get_reporte($yearInicio,$yearFin,$mesInicio,$mesFin){
+        $sql="CALL historial($yearInicio,$yearFin,$mesInicio,$mesFin) ";
+        $resultados = $this->db->query($sql);
+        return $resultados->result();
+    }
 }
 ?>

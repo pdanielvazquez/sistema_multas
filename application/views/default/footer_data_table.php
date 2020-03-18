@@ -45,6 +45,7 @@
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('startbootstrap/js/sb-admin-2.min.js') ?>"></script>
 
+<script src="<?=base_url('startbootstrap/js/ajax/reportes.js')?>"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
