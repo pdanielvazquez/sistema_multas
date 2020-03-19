@@ -77,6 +77,7 @@
             <a class="collapse-item" href="<?= base_url('/pagar')?>">Pagar multa</a>
             <a class="collapse-item" href="<?= base_url('/existente')?>">Registradas</a>
             <a class="collapse-item" href="<?=base_url('nueva') ?>">Nueva</a>
+            <a class="collapse-item" href="<?=base_url('Reportes') ?>">Reporte</a>
           </div>
         </div>
 
@@ -85,9 +86,9 @@
           <span>Precio Multa</span>
         </a>
 
-        <a class="nav-link " href="<?=base_url('Reportes')?>">
-        <i class="fas fa-paste"></i>
-          <span>Reporte</span>
+        <a class="nav-link " href="<?=base_url('informe')?>">
+          <i class="fas fa-paste"></i>
+          <span>Informes</span>
         </a>
         
       </li>

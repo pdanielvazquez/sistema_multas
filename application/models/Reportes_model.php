@@ -22,5 +22,13 @@ class Reportes_model extends CI_Model{
         $resultados = $this->db->query($sql);
         return $resultados->result();
     }
+
+    public function chart_data($year,$tipo){
+        mysqli_next_result( $this->db->conn_id );
+        $sql="call grafica_anual('$year','$tipo') ";
+        $resultados = $this->db->query($sql);
+        
+        return $resultados->result();
+    }
 }
 ?>

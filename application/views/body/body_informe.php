@@ -4,16 +4,17 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $titulo_seccion ?></h1>
     <div class="content">
 
-        <div class="row ">
+
+        <form action="<?= base_url('informe') ?>" method="post" class="col-12 row">
             <div class="col-6 col-sm-4">
                 <div class="form-group col-12">
-                    <label for="yearinicio">Año</label>
-                    <input type="number" name="yearinicio" id="yearinicio" class=" form-control" placeholder="Ingresar año" />
+                    <label for="yearOne">Año</label>
+                    <input type="number" name="yearOne" id="yearOne" class=" form-control" placeholder="Ingresar año" />
                 </div>
 
                 <div class="form-group col-12">
-                    <label for="mesinicio">Mes</label>
-                    <select name="mesinicio" id="mesinicio" class="form-control">
+                    <label for="mesOne">Mes</label>
+                    <select name="mesOne" id="mesOne" class="form-control">
                         <option selected disabled>Seleccionar mes</option>col-6 col-sm-4
                         <option value="1">Enero</option>
                         <option value="2">Febrero</option>
@@ -30,16 +31,15 @@
                     </select>
                 </div>
             </div>
-
             <div class="col-6 col-sm-4">
                 <div class="form-group col-12">
-                    <label for="yearfin">Año</label>
-                    <input type="number" name="yearfin" id="yearfin" class=" form-control" placeholder="Ingresar año" />
+                    <label for="yearTwo">Año</label>
+                    <input type="number" name="yearTwo" id="yearTwo" class=" form-control" placeholder="Ingresar año" />
                 </div>
 
                 <div class="form-group col-12 ">
-                    <label for="mesfin">Mes</label>
-                    <select name="mesfin" id="mesfin" class="form-control">
+                    <label for="mesTwo">Mes</label>
+                    <select name="mesTwo" id="mesTwo" class="form-control">
                         <option selected disabled>Seleccionar mes</option>col-6 col-sm-4
                         <option value="1">Enero</option>
                         <option value="2">Febrero</option>
@@ -57,13 +57,28 @@
                 </div>
             </div>
             <div class="col-6 col-sm-2 mt-5">
-                <button type="submit" class="btn btn-primary" onclick="viewtable()">
+                <button type="submit" class="btn  btn-outline-primary">
                     Buscar
                 </button>
+                <!--<button type="submit" class="btn btn-primary" onclick="viewtable()">
+                        Buscar
+                    </button>-->
             </div>
-            <!-- .row4 -->
-        </div>
-        <div class="col-12">
+        </form>
+        <!-- .row4 -->
+
+        <?php
+
+        ?>
+        <?php
+        if ($tabla) {
+            $visible = 'col-12 ';
+        } else {
+            $visible = 'col-12 d-none';
+        }
+        ?>
+        <div class="<?= $visible ?>">
+            <br><br><br>
             <table id="ejemplo" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
@@ -71,12 +86,24 @@
                         <th>Fecha Creada</th>
                         <th>monto</th>
                         <th>nombre</th>
-                        <th>status</th>                        
+                        <th>status</th>
                     </tr>
                 </thead>
                 <tbody id="cuerpo">
-                    
-                    
+                    <?php
+                    foreach ($tabla as $key => $item) {
+                        echo "
+                                <tr>
+                                    <th class='text-center'>" . $item->folio . "</th>
+                                    <th>" . date("d/m/Y", strtotime($item->fecha_creada)) . "</th>
+                                    <th>" . $item->monto . "</th>
+                                    <th>" . $item->nombre . "</th>
+                                    <th>" . $item->status . "</th>                        
+                                </tr>
+                                ";
+                    }
+                    ?>
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -90,6 +117,17 @@
             </table>
         </div>
 
+    </div>
+
+    <div class="card-body col-8">
+        <div class=" card-header text-center bg-info text-light">
+            Gráfica de multas 
+        </div>
+        <form method="post" onsubmit="grafica(event)" class=" mb-4">
+            <label for="year">año</label>
+            <input type="number" id="year" placeholder="Escribe el año" class="form-control" />
+        </form>
+        <canvas id="myChart" width="600" height="400" class=""></canvas>
     </div>
 </div>
 </div>
